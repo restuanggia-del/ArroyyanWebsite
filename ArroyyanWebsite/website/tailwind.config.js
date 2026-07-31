@@ -4,8 +4,8 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "#0284c7",   // biru khas air minum, sesuaikan dengan brand Arroyyan
-        secondary: "#0f172a",
+        primary: "#4BB8FA",
+        secondary: "#0D47A1",
       },
     },
   },
