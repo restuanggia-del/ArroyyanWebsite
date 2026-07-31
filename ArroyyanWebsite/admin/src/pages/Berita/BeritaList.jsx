@@ -1,11 +1,84 @@
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { getAllBerita, deleteBerita } from "../../services/beritaService.js";
+
 function BeritaList() {
+  const [berita, setBerita] = useState([]);
+
+  const fetchBerita = () => {
+    getAllBerita()
+      .then((res) => setBerita(res.data))
+      .catch(() => {});
+  };
+
+  useEffect(() => {
+    fetchBerita();
+  }, []);
+
+  const handleDelete = async (id) => {
+    if (!confirm("Yakin ingin menghapus berita ini?")) return;
+    await deleteBerita(id);
+    fetchBerita();
+  };
+
   return (
     <div>
-      <h1 className="mb-6 text-2xl font-bold text-secondary">Kelola Berita</h1>
-      <p className="text-gray-500">
-        {/* TODO: ikuti pola yang sama seperti Produk/ProdukList.jsx dan Produk/ProdukForm.jsx */}
-        Gunakan pola CRUD yang sama seperti halaman Produk.
-      </p>
+      <div className="mb-6 flex items-center justify-between">
+        <h1 className="text-2xl font-bold text-secondary">Kelola Berita</h1>
+        <Link
+          to="/berita/tambah"
+          className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-sky-700"
+        >
+          + Tambah Berita
+        </Link>
+      </div>
+
+      <table className="w-full overflow-hidden rounded-xl bg-white shadow-sm">
+        <thead className="bg-gray-50 text-left text-sm text-gray-500">
+          <tr>
+            <th className="px-4 py-3">Judul</th>
+            <th className="px-4 py-3">Kategori</th>
+            <th className="px-4 py-3">Status</th>
+            <th className="px-4 py-3">Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          {berita.map((item) => (
+            <tr key={item._id} className="border-t text-sm">
+              <td className="px-4 py-3">{item.judul}</td>
+              <td className="px-4 py-3 capitalize">{item.kategori}</td>
+              <td className="px-4 py-3">
+                <span
+                  className={`rounded-full px-2 py-1 text-xs ${item.status === "publish" ? "bg-green-100 text-green-700" : "bg-gray-100 text-gray-600"}`}
+                >
+                  {item.status}
+                </span>
+              </td>
+              <td className="px-4 py-3 space-x-2">
+                <Link
+                  to={`/berita/edit/${item._id}`}
+                  className="text-primary hover:underline"
+                >
+                  Edit
+                </Link>
+                <button
+                  onClick={() => handleDelete(item._id)}
+                  className="text-red-500 hover:underline"
+                >
+                  Hapus
+                </button>
+              </td>
+            </tr>
+          ))}
+          {berita.length === 0 && (
+            <tr>
+              <td colSpan={4} className="px-4 py-6 text-center text-gray-400">
+                Belum ada berita.
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
     </div>
   );
 }

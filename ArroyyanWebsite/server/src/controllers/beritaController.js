@@ -11,10 +11,31 @@ export const getBerita = async (req, res) => {
   }
 };
 
+export const getAllBeritaAdmin = async (req, res) => {
+  try {
+    const berita = await Berita.find().sort({ createdAt: -1 });
+    res.json(berita);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const getBeritaById = async (req, res) => {
+  try {
+    const berita = await Berita.findById(req.params.id);
+    if (!berita)
+      return res.status(404).json({ message: "Berita tidak ditemukan" });
+    res.json(berita);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 export const getBeritaBySlug = async (req, res) => {
   try {
     const berita = await Berita.findOne({ slug: req.params.slug });
-    if (!berita) return res.status(404).json({ message: "Berita tidak ditemukan" });
+    if (!berita)
+      return res.status(404).json({ message: "Berita tidak ditemukan" });
     res.json(berita);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -40,7 +61,8 @@ export const updateBerita = async (req, res) => {
       new: true,
       runValidators: true,
     });
-    if (!berita) return res.status(404).json({ message: "Berita tidak ditemukan" });
+    if (!berita)
+      return res.status(404).json({ message: "Berita tidak ditemukan" });
     res.json(berita);
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -50,7 +72,8 @@ export const updateBerita = async (req, res) => {
 export const deleteBerita = async (req, res) => {
   try {
     const berita = await Berita.findByIdAndDelete(req.params.id);
-    if (!berita) return res.status(404).json({ message: "Berita tidak ditemukan" });
+    if (!berita)
+      return res.status(404).json({ message: "Berita tidak ditemukan" });
     res.json({ message: "Berita berhasil dihapus" });
   } catch (error) {
     res.status(500).json({ message: error.message });

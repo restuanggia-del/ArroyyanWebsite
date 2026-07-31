@@ -7,18 +7,17 @@ import produkRoutes from "./routes/produkRoutes.js";
 import beritaRoutes from "./routes/beritaRoutes.js";
 import bannerRoutes from "./routes/bannerRoutes.js";
 import kontakRoutes from "./routes/kontakRoutes.js";
+import homeServisRoutes from "./routes/homeServisRoutes.js";
+import pengaturanRoutes from "./routes/pengaturanRoutes.js";
 
 const app = express();
 
 // Middleware
 app.use(
   cors({
-    origin: [
-      process.env.CLIENT_WEBSITE_URL,
-      process.env.CLIENT_ADMIN_URL,
-    ],
+    origin: [process.env.CLIENT_WEBSITE_URL, process.env.CLIENT_ADMIN_URL],
     credentials: true,
-  })
+  }),
 );
 app.use(express.json());
 app.use(morgan("dev"));
@@ -36,6 +35,8 @@ app.use("/api/produk", produkRoutes);
 app.use("/api/berita", beritaRoutes);
 app.use("/api/banner", bannerRoutes);
 app.use("/api/kontak", kontakRoutes);
+app.use("/api/home-servis", homeServisRoutes);
+app.use("/api/pengaturan", pengaturanRoutes);
 
 // 404 handler
 app.use((req, res) => {

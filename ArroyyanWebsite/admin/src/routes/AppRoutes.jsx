@@ -7,6 +7,7 @@ import Dashboard from "../pages/Dashboard.jsx";
 import ProdukList from "../pages/Produk/ProdukList.jsx";
 import ProdukForm from "../pages/Produk/ProdukForm.jsx";
 import BeritaList from "../pages/Berita/BeritaList.jsx";
+import BeritaForm from "../pages/Berita/BeritaForm.jsx";
 import Banner from "../pages/Banner.jsx";
 import HomeServis from "../pages/HomeServis.jsx";
 import Kontak from "../pages/Kontak.jsx";
@@ -26,15 +27,116 @@ function AppRoutes() {
     <Routes>
       <Route path="/login" element={<Login />} />
 
-      <Route path="/" element={<ProtectedRoute><AdminLayout><Dashboard /></AdminLayout></ProtectedRoute>} />
-      <Route path="/produk" element={<ProtectedRoute><AdminLayout><ProdukList /></AdminLayout></ProtectedRoute>} />
-      <Route path="/produk/tambah" element={<ProtectedRoute><AdminLayout><ProdukForm /></AdminLayout></ProtectedRoute>} />
-      <Route path="/produk/edit/:id" element={<ProtectedRoute><AdminLayout><ProdukForm /></AdminLayout></ProtectedRoute>} />
-      <Route path="/berita" element={<ProtectedRoute><AdminLayout><BeritaList /></AdminLayout></ProtectedRoute>} />
-      <Route path="/banner" element={<ProtectedRoute><AdminLayout><Banner /></AdminLayout></ProtectedRoute>} />
-      <Route path="/home-servis" element={<ProtectedRoute><AdminLayout><HomeServis /></AdminLayout></ProtectedRoute>} />
-      <Route path="/kontak" element={<ProtectedRoute><AdminLayout><Kontak /></AdminLayout></ProtectedRoute>} />
-      <Route path="/pengaturan" element={<ProtectedRoute><AdminLayout><Pengaturan /></AdminLayout></ProtectedRoute>} />
+      <Route
+        path="/"
+        element={
+          <ProtectedRoute>
+            <AdminLayout>
+              <Dashboard />
+            </AdminLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/produk"
+        element={
+          <ProtectedRoute>
+            <AdminLayout>
+              <ProdukList />
+            </AdminLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/produk/tambah"
+        element={
+          <ProtectedRoute>
+            <AdminLayout>
+              <ProdukForm />
+            </AdminLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/produk/edit/:id"
+        element={
+          <ProtectedRoute>
+            <AdminLayout>
+              <ProdukForm />
+            </AdminLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/berita"
+        element={
+          <ProtectedRoute>
+            <AdminLayout>
+              <BeritaList />
+            </AdminLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/berita/tambah"
+        element={
+          <ProtectedRoute>
+            <AdminLayout>
+              <BeritaForm />
+            </AdminLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/berita/edit/:id"
+        element={
+          <ProtectedRoute>
+            <AdminLayout>
+              <BeritaForm />
+            </AdminLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/banner"
+        element={
+          <ProtectedRoute>
+            <AdminLayout>
+              <Banner />
+            </AdminLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/home-servis"
+        element={
+          <ProtectedRoute>
+            <AdminLayout>
+              <HomeServis />
+            </AdminLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/kontak"
+        element={
+          <ProtectedRoute>
+            <AdminLayout>
+              <Kontak />
+            </AdminLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/pengaturan"
+        element={
+          <ProtectedRoute>
+            <AdminLayout>
+              <Pengaturan />
+            </AdminLayout>
+          </ProtectedRoute>
+        }
+      />
     </Routes>
   );
 }
