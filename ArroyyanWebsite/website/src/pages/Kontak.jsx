@@ -35,7 +35,7 @@ function Kontak() {
           <p className="mb-2 text-gray-600">Email: info@arroyyan99.com</p>
           <div className="mt-6">
             <MapEmbed
-              query="Jl. Malabar No. 88 Bogatama, Kec. Penawar Tama, Kab. Tulang Bawang, Lampung 34595"
+              src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d402.191539341772!2d105.48303621142395!3d-4.186876230866167!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sid!2sid!4v1785470467584!5m2!1sid!2sid"
               height="18rem"
             />
           </div>
