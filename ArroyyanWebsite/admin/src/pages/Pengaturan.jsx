@@ -13,6 +13,10 @@ function Pengaturan() {
     facebook: "",
     whatsapp: "",
     mapsEmbedUrl: "",
+    tahunBerdiri: "",
+    jumlahDistributor: "",
+    literProduksiPerBulan: "",
+    jumlahPelangganPuas: "",
   });
   const [loading, setLoading] = useState(false);
   const [sukses, setSukses] = useState(false);
@@ -142,6 +146,63 @@ function Pengaturan() {
             placeholder="https://www.google.com/maps/embed?pb=..."
             className="w-full rounded-lg border px-4 py-2"
           />
+        </div>
+
+        <hr className="my-2" />
+        <h2 className="text-sm font-semibold text-secondary">
+          Statistik Pencapaian (tampil di Beranda)
+        </h2>
+
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          <div>
+            <label className="mb-1 block text-sm font-medium">
+              Tahun Berdiri
+            </label>
+            <input
+              name="tahunBerdiri"
+              type="number"
+              value={form.tahunBerdiri ?? ""}
+              onChange={handleChange}
+              placeholder="Contoh: 2015"
+              className="w-full rounded-lg border px-4 py-2"
+            />
+          </div>
+          <div>
+            <label className="mb-1 block text-sm font-medium">
+              Jumlah Distributor
+            </label>
+            <input
+              name="jumlahDistributor"
+              value={form.jumlahDistributor}
+              onChange={handleChange}
+              placeholder="Contoh: 50+"
+              className="w-full rounded-lg border px-4 py-2"
+            />
+          </div>
+          <div>
+            <label className="mb-1 block text-sm font-medium">
+              Produksi per Bulan
+            </label>
+            <input
+              name="literProduksiPerBulan"
+              value={form.literProduksiPerBulan}
+              onChange={handleChange}
+              placeholder="Contoh: 100.000 Liter"
+              className="w-full rounded-lg border px-4 py-2"
+            />
+          </div>
+          <div>
+            <label className="mb-1 block text-sm font-medium">
+              Pelanggan Puas
+            </label>
+            <input
+              name="jumlahPelangganPuas"
+              value={form.jumlahPelangganPuas}
+              onChange={handleChange}
+              placeholder="Contoh: 5.000+"
+              className="w-full rounded-lg border px-4 py-2"
+            />
+          </div>
         </div>
 
         {sukses && (

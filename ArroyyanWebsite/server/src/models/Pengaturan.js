@@ -9,6 +9,11 @@ const pengaturanSchema = new mongoose.Schema(
     facebook: { type: String, default: "" },
     whatsapp: { type: String, default: "" },
     mapsEmbedUrl: { type: String, default: "" },
+
+    tahunBerdiri: { type: Number, default: null },
+    jumlahDistributor: { type: String, default: "" },
+    literProduksiPerBulan: { type: String, default: "" },
+    jumlahPelangganPuas: { type: String, default: "" },
   },
   { timestamps: true },
 );

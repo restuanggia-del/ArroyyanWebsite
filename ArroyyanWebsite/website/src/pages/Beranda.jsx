@@ -7,6 +7,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { getProdukUnggulan } from "../services/produkService.js";
 import { getAllBanner } from "../services/bannerService.js";
+import { getPengaturan } from "../services/pengaturanService.js";
 import MapEmbed from "../components/common/MapEmbed.jsx";
 
 const API_BASE_URL = import.meta.env.VITE_API_URL.replace("/api", "");
@@ -130,6 +131,7 @@ function Beranda() {
   const [banners, setBanners] = useState([]);
   const [produkUnggulan, setProdukUnggulan] = useState([]);
   const [loadingBanner, setLoadingBanner] = useState(true);
+  const [pengaturan, setPengaturan] = useState(null);
 
   useEffect(() => {
     getAllBanner()
@@ -138,6 +140,9 @@ function Beranda() {
       .finally(() => setLoadingBanner(false));
     getProdukUnggulan()
       .then((res) => setProdukUnggulan(res.data))
+      .catch(() => {});
+    getPengaturan()
+      .then((res) => setPengaturan(res.data))
       .catch(() => {});
   }, []);
 
@@ -236,6 +241,46 @@ function Beranda() {
           </div>
         </div>
       </section>
+
+      {/* Statistik Pencapaian */}
+      {pengaturan &&
+        (() => {
+          const statistik = [
+            pengaturan.tahunBerdiri && {
+              label: "Berdiri Sejak",
+              nilai: pengaturan.tahunBerdiri,
+            },
+            pengaturan.jumlahDistributor && {
+              label: "Distributor",
+              nilai: pengaturan.jumlahDistributor,
+            },
+            pengaturan.literProduksiPerBulan && {
+              label: "Produksi / Bulan",
+              nilai: pengaturan.literProduksiPerBulan,
+            },
+            pengaturan.jumlahPelangganPuas && {
+              label: "Pelanggan Puas",
+              nilai: pengaturan.jumlahPelangganPuas,
+            },
+          ].filter(Boolean);
+
+          if (statistik.length === 0) return null;
+
+          return (
+            <section className="bg-primary py-16 text-white">
+              <div className="mx-auto grid max-w-5xl grid-cols-2 gap-8 px-4 text-center md:grid-cols-4">
+                {statistik.map((item) => (
+                  <div key={item.label}>
+                    <p className="text-3xl font-bold md:text-4xl">
+                      {item.nilai}
+                    </p>
+                    <p className="mt-1 text-sm text-white/80">{item.label}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+          );
+        })()}
 
       {/* Sertifikasi & Legalitas */}
       <section className="py-16">
