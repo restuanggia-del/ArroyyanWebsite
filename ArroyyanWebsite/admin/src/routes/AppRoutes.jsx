@@ -9,6 +9,7 @@ import ProdukForm from "../pages/Produk/ProdukForm.jsx";
 import BeritaList from "../pages/Berita/BeritaList.jsx";
 import BeritaForm from "../pages/Berita/BeritaForm.jsx";
 import Banner from "../pages/Banner.jsx";
+import Testimoni from "../pages/Testimoni.jsx";
 import HomeServis from "../pages/HomeServis.jsx";
 import Kontak from "../pages/Kontak.jsx";
 import Pengaturan from "../pages/Pengaturan.jsx";
@@ -103,6 +104,16 @@ function AppRoutes() {
           <ProtectedRoute>
             <AdminLayout>
               <Banner />
+            </AdminLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/testimoni"
+        element={
+          <ProtectedRoute>
+            <AdminLayout>
+              <Testimoni />
             </AdminLayout>
           </ProtectedRoute>
         }

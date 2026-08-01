@@ -8,6 +8,7 @@ import "swiper/css/pagination";
 import { getProdukUnggulan } from "../services/produkService.js";
 import { getAllBanner } from "../services/bannerService.js";
 import { getPengaturan } from "../services/pengaturanService.js";
+import { getAllTestimoni } from "../services/testimoniService.js";
 import MapEmbed from "../components/common/MapEmbed.jsx";
 
 const API_BASE_URL = import.meta.env.VITE_API_URL.replace("/api", "");
@@ -132,6 +133,7 @@ function Beranda() {
   const [produkUnggulan, setProdukUnggulan] = useState([]);
   const [loadingBanner, setLoadingBanner] = useState(true);
   const [pengaturan, setPengaturan] = useState(null);
+  const [testimoni, setTestimoni] = useState([]);
 
   useEffect(() => {
     getAllBanner()
@@ -143,6 +145,9 @@ function Beranda() {
       .catch(() => {});
     getPengaturan()
       .then((res) => setPengaturan(res.data))
+      .catch(() => {});
+    getAllTestimoni()
+      .then((res) => setTestimoni(res.data))
       .catch(() => {});
   }, []);
 
@@ -317,6 +322,53 @@ function Beranda() {
           </p>
         </div>
       </section>
+
+      {/* Testimoni Pelanggan */}
+      {testimoni.length > 0 && (
+        <section className="bg-gray-50 py-16">
+          <div className="mx-auto max-w-4xl px-4">
+            <h2 className="mb-10 text-center text-3xl font-bold text-secondary">
+              Apa Kata Mereka?
+            </h2>
+            <Swiper
+              modules={[Autoplay, Pagination]}
+              autoplay={{ delay: 5000, disableOnInteraction: false }}
+              pagination={{ clickable: true }}
+              loop={testimoni.length > 1}
+              className="pb-10"
+            >
+              {testimoni.map((item) => (
+                <SwiperSlide key={item._id}>
+                  <div className="mx-4 rounded-xl bg-white p-8 text-center shadow-sm">
+                    {item.foto ? (
+                      <img
+                        src={`${API_BASE_URL}${item.foto}`}
+                        alt={item.nama}
+                        className="mx-auto mb-4 h-16 w-16 rounded-full object-cover"
+                      />
+                    ) : (
+                      <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-lg font-semibold text-primary">
+                        {item.nama.charAt(0)}
+                      </div>
+                    )}
+                    <p className="mb-1 text-yellow-500">
+                      {"★".repeat(item.rating)}
+                      {"☆".repeat(5 - item.rating)}
+                    </p>
+                    <p className="mb-4 italic text-gray-600">
+                      &ldquo;{item.pesan}&rdquo;
+                    </p>
+                    <p className="font-semibold text-secondary">{item.nama}</p>
+                    {item.peran && (
+                      <p className="text-sm text-gray-400">{item.peran}</p>
+                    )}
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+        </section>
+      )}
 
       {/* Maps */}
       <section className="mx-auto max-w-7xl px-4 py-16">

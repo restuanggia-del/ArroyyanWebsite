@@ -9,6 +9,7 @@ import bannerRoutes from "./routes/bannerRoutes.js";
 import kontakRoutes from "./routes/kontakRoutes.js";
 import homeServisRoutes from "./routes/homeServisRoutes.js";
 import pengaturanRoutes from "./routes/pengaturanRoutes.js";
+import testimoniRoutes from "./routes/testimoniRoutes.js";
 
 const app = express();
 
@@ -37,6 +38,7 @@ app.use("/api/banner", bannerRoutes);
 app.use("/api/kontak", kontakRoutes);
 app.use("/api/home-servis", homeServisRoutes);
 app.use("/api/pengaturan", pengaturanRoutes);
+app.use("/api/testimoni", testimoniRoutes);
 
 // 404 handler
 app.use((req, res) => {
