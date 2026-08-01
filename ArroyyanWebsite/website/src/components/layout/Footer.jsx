@@ -10,7 +10,11 @@ function Footer() {
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-8 px-4 py-12 md:grid-cols-3">
         {/* Kiri: Logo & Slogan */}
         <div>
-          <img src="/logo-arroyyan-white.png" alt="Logo Arroyyan99" className="h-10 w-auto mb-3" />
+          <img
+            src="/logo-arroyyan-white.png"
+            alt="Logo Arroyyan99"
+            className="h-10 w-auto mb-3"
+          />
           <p className="text-sm text-gray-300">
             Air Minum Dalam Kemasan berkualitas untuk keluarga Indonesia.
           </p>
@@ -20,10 +24,26 @@ function Footer() {
         <div>
           <h4 className="mb-3 font-semibold">Navigasi</h4>
           <ul className="space-y-2 text-sm text-gray-300">
-            <li><Link to="/" className="hover:text-primary">Beranda</Link></li>
-            <li><Link to="/tentang" className="hover:text-primary">Tentang</Link></li>
-            <li><Link to="/produk" className="hover:text-primary">Produk</Link></li>
-            <li><Link to="/home-servis" className="hover:text-primary">Home Servis</Link></li>
+            <li>
+              <Link to="/" className="hover:text-primary">
+                Beranda
+              </Link>
+            </li>
+            <li>
+              <Link to="/tentang" className="hover:text-primary">
+                Tentang
+              </Link>
+            </li>
+            <li>
+              <Link to="/produk" className="hover:text-primary">
+                Produk
+              </Link>
+            </li>
+            <li>
+              <Link to="/home-servis" className="hover:text-primary">
+                Home Servis
+              </Link>
+            </li>
           </ul>
         </div>
 
@@ -31,7 +51,9 @@ function Footer() {
         <div>
           <h4 className="mb-3 font-semibold">Hubungi Kami</h4>
           <ul className="space-y-2 text-sm text-gray-300">
-            <li>Jl. Contoh Alamat No. 99, Kota Anda</li>
+            <li>
+              Jl. Malabar No.88 Bogatama, Penawar Tama, Tulang Bawang, Lampung
+            </li>
             <li>0812-3456-7890</li>
             <li>info@arroyyan99.com</li>
           </ul>

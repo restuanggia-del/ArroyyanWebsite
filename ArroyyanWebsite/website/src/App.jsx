@@ -1,6 +1,7 @@
 import Header from "./components/layout/Header.jsx";
 import Footer from "./components/layout/Footer.jsx";
 import AppRoutes from "./routes/AppRoutes.jsx";
+import FloatingWhatsApp from "./components/common/FloatingWhatsApp.jsx";
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
         <AppRoutes />
       </main>
       <Footer />
+      <FloatingWhatsApp />
     </div>
   );
 }
