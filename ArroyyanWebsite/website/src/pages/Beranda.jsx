@@ -157,9 +157,9 @@ function Beranda() {
   return (
     <div>
       {/* Banner Slider */}
-      <section className="relative h-[400px] md:h-[500px]">
+      <section className="relative h-[260px] sm:h-[340px] md:h-[500px]">
         {loadingBanner ? (
-          <div className="flex h-full items-center justify-center bg-gray-100 text-gray-400">
+          <div className="flex h-full items-center justify-center bg-gray-100 text-sm text-gray-400 sm:text-base">
             Memuat banner...
           </div>
         ) : (
@@ -174,7 +174,7 @@ function Beranda() {
             {slideData.map((banner) => (
               <SwiperSlide key={banner._id}>
                 <div
-                  className="flex h-full w-full items-center justify-center bg-gradient-to-br from-primary to-secondary bg-cover bg-center"
+                  className="flex h-full w-full items-center justify-center bg-gradient-to-br from-primary to-secondary bg-cover bg-center px-4 sm:px-6"
                   style={
                     banner.gambar
                       ? {
@@ -184,7 +184,7 @@ function Beranda() {
                   }
                 >
                   {banner.judul && (
-                    <h2 className="rounded-lg bg-black/30 px-6 py-3 text-center text-2xl font-bold text-white md:text-4xl">
+                    <h2 className="max-w-[90%] rounded-lg bg-black/30 px-4 py-2 text-center text-lg font-bold text-white sm:px-5 sm:py-3 sm:text-2xl md:text-4xl">
                       {banner.judul}
                     </h2>
                   )}
@@ -195,7 +195,7 @@ function Beranda() {
         )}
 
         {tampilkanPlaceholder && (
-          <p className="absolute bottom-2 left-1/2 z-10 -translate-x-1/2 rounded bg-yellow-100 px-3 py-1 text-xs text-yellow-800">
+          <p className="absolute bottom-2 left-1/2 z-10 w-[calc(100%-1.5rem)] max-w-md -translate-x-1/2 rounded bg-yellow-100 px-3 py-1 text-center text-[10px] text-yellow-800 sm:text-xs">
             Menampilkan banner placeholder — upload banner asli di Admin Panel
             &gt; Banner
           </p>
@@ -203,22 +203,27 @@ function Beranda() {
       </section>
 
       {/* Produk Unggulan */}
-      <section className="mx-auto max-w-7xl px-4 py-16">
-        <h2 className="mb-8 text-center text-3xl font-bold text-secondary">
+      <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16">
+        <h2 className="mb-6 text-center text-2xl font-bold text-secondary sm:text-3xl">
           Produk Unggulan
         </h2>
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {produkUnggulan.map((produk) => (
-            <div key={produk._id} className="rounded-xl border p-4 shadow-sm">
-              <h3 className="font-semibold">{produk.nama}</h3>
-              <p className="text-sm text-gray-500">{produk.volume}</p>
+            <div
+              key={produk._id}
+              className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition-shadow duration-200 hover:shadow-md"
+            >
+              <h3 className="text-base font-semibold text-secondary sm:text-lg">
+                {produk.nama}
+              </h3>
+              <p className="mt-2 text-sm text-gray-500">{produk.volume}</p>
             </div>
           ))}
         </div>
-        <div className="mt-8 flex justify-end">
+        <div className="mt-8 flex justify-center sm:justify-end">
           <Link
             to="/produk"
-            className="rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white hover:bg-sky-700"
+            className="rounded-full bg-primary px-5 py-3 text-sm font-semibold text-white transition hover:bg-sky-700 sm:px-6"
           >
             Lihat Selengkapnya
           </Link>
@@ -226,21 +231,26 @@ function Beranda() {
       </section>
 
       {/* Mengapa Arroyyan */}
-      <section className="bg-gray-50 py-16">
-        <div className="mx-auto max-w-7xl px-4">
-          <h2 className="mb-12 text-center text-3xl font-bold text-secondary">
+      <section className="bg-gray-50 py-12 sm:py-16">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
+          <h2 className="mb-8 text-center text-2xl font-bold text-secondary sm:mb-12 sm:text-3xl">
             Mengapa Arroyyan?
           </h2>
-          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {KEUNGGULAN.map((item) => (
-              <div key={item.judul} className="text-center">
-                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary">
+              <div
+                key={item.judul}
+                className="rounded-xl bg-white p-5 text-center shadow-sm sm:p-6"
+              >
+                <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 text-primary sm:h-16 sm:w-16">
                   {item.icon}
                 </div>
-                <h3 className="mb-2 font-semibold text-secondary">
+                <h3 className="mb-2 text-base font-semibold text-secondary sm:text-lg">
                   {item.judul}
                 </h3>
-                <p className="text-sm text-gray-500">{item.deskripsi}</p>
+                <p className="text-sm leading-relaxed text-gray-500">
+                  {item.deskripsi}
+                </p>
               </div>
             ))}
           </div>
@@ -288,35 +298,37 @@ function Beranda() {
         })()}
 
       {/* Sertifikasi & Legalitas */}
-      <section className="py-16">
-        <div className="mx-auto max-w-5xl px-4 text-center">
-          <h2 className="mb-2 text-3xl font-bold text-secondary">
+      <section className="py-12 sm:py-16">
+        <div className="mx-auto max-w-5xl px-4 text-center sm:px-6">
+          <h2 className="mb-2 text-2xl font-bold text-secondary sm:text-3xl">
             Sertifikasi & Legalitas
           </h2>
-          <p className="mb-10 text-sm text-gray-500">
+          <p className="mb-8 text-sm text-gray-500 sm:mb-10">
             Arroyyan99 telah memenuhi standar keamanan pangan dan legalitas
             produk yang berlaku di Indonesia.
           </p>
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {SERTIFIKASI.map((item) => (
               <div
                 key={item.nama}
-                className="flex flex-col items-center rounded-xl border p-6"
+                className="flex flex-col items-center rounded-xl border border-slate-200 p-5 text-center sm:p-6"
               >
                 <img
                   src={item.gambar}
                   alt={`Logo ${item.nama}`}
-                  className="mb-4 h-16 w-auto object-contain"
+                  className="mb-4 h-14 w-auto object-contain sm:h-16"
                   onError={(e) => {
                     e.target.style.display = "none";
                   }}
                 />
                 <h3 className="font-semibold text-secondary">{item.nama}</h3>
-                <p className="mt-1 text-xs text-gray-500">{item.keterangan}</p>
+                <p className="mt-1 text-xs leading-relaxed text-gray-500">
+                  {item.keterangan}
+                </p>
               </div>
             ))}
           </div>
-          <p className="mt-6 text-xs text-gray-400">
+          <p className="mt-6 text-[11px] text-gray-400 sm:text-xs">
             * Nomor registrasi/sertifikat resmi dapat ditampilkan di sini
             setelah dokumen tersedia.
           </p>
@@ -325,9 +337,9 @@ function Beranda() {
 
       {/* Testimoni Pelanggan */}
       {testimoni.length > 0 && (
-        <section className="bg-gray-50 py-16">
-          <div className="mx-auto max-w-4xl px-4">
-            <h2 className="mb-10 text-center text-3xl font-bold text-secondary">
+        <section className="bg-gray-50 py-12 sm:py-16">
+          <div className="mx-auto max-w-4xl px-4 sm:px-6">
+            <h2 className="mb-8 text-center text-2xl font-bold text-secondary sm:mb-10 sm:text-3xl">
               Apa Kata Mereka?
             </h2>
             <Swiper
@@ -339,15 +351,15 @@ function Beranda() {
             >
               {testimoni.map((item) => (
                 <SwiperSlide key={item._id}>
-                  <div className="mx-4 rounded-xl bg-white p-8 text-center shadow-sm">
+                  <div className="mx-0 rounded-xl bg-white p-5 text-center shadow-sm sm:mx-4 sm:p-8">
                     {item.foto ? (
                       <img
                         src={`${API_BASE_URL}${item.foto}`}
                         alt={item.nama}
-                        className="mx-auto mb-4 h-16 w-16 rounded-full object-cover"
+                        className="mx-auto mb-4 h-14 w-14 rounded-full object-cover sm:h-16 sm:w-16"
                       />
                     ) : (
-                      <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-lg font-semibold text-primary">
+                      <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 text-base font-semibold text-primary sm:h-16 sm:w-16 sm:text-lg">
                         {item.nama.charAt(0)}
                       </div>
                     )}
@@ -355,7 +367,7 @@ function Beranda() {
                       {"★".repeat(item.rating)}
                       {"☆".repeat(5 - item.rating)}
                     </p>
-                    <p className="mb-4 italic text-gray-600">
+                    <p className="mb-4 text-sm italic text-gray-600 sm:text-base">
                       &ldquo;{item.pesan}&rdquo;
                     </p>
                     <p className="font-semibold text-secondary">{item.nama}</p>
@@ -371,21 +383,23 @@ function Beranda() {
       )}
 
       {/* Maps */}
-      <section className="mx-auto max-w-7xl px-4 py-16">
-        <h2 className="mb-8 text-center text-3xl font-bold text-secondary">
+      <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16">
+        <h2 className="mb-6 text-center text-2xl font-bold text-secondary sm:mb-8 sm:text-3xl">
           Lokasi Kami
         </h2>
-        <MapEmbed src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d402.191539341772!2d105.48303621142395!3d-4.186876230866167!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sid!2sid!4v1785470467584!5m2!1sid!2sid" />
+        <div className="overflow-hidden rounded-2xl border border-slate-200 shadow-sm">
+          <MapEmbed src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d402.191539341772!2d105.48303621142395!3d-4.186876230866167!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sid!2sid!4v1785470467584!5m2!1sid!2sid" />
+        </div>
       </section>
 
       {/* CTA */}
-      <section className="bg-primary py-16 text-center text-white">
-        <h2 className="mb-4 text-2xl font-bold">
+      <section className="bg-primary px-4 py-12 text-center text-white sm:px-6 sm:py-16">
+        <h2 className="mb-4 text-xl font-bold sm:text-2xl">
           Siap Berlangganan Air Minum Berkualitas?
         </h2>
         <Link
           to="/kontak"
-          className="rounded-full bg-white px-6 py-3 font-semibold text-primary"
+          className="inline-block rounded-full bg-white px-5 py-3 text-sm font-semibold text-primary transition hover:bg-slate-100 sm:px-6"
         >
           Hubungi Kami Sekarang
         </Link>
