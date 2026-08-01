@@ -34,8 +34,13 @@ function Pengaturan() {
       await updatePengaturan(form);
       setSukses(true);
       setTimeout(() => setSukses(false), 3000);
-    } catch {
-      alert("Gagal menyimpan perubahan");
+    } catch (err) {
+      console.error("Gagal update pengaturan:", err);
+      const pesan =
+        err.response?.data?.message ||
+        err.message ||
+        "Gagal menyimpan perubahan";
+      alert(`Gagal menyimpan perubahan: ${pesan}`);
     } finally {
       setLoading(false);
     }
