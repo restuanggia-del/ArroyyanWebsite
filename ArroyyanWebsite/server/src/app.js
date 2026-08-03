@@ -11,6 +11,7 @@ import homeServisRoutes from "./routes/homeServisRoutes.js";
 import pengaturanRoutes from "./routes/pengaturanRoutes.js";
 import testimoniRoutes from "./routes/testimoniRoutes.js";
 import tentangRoutes from "./routes/tentangRoutes.js";
+import statsRoutes from "./routes/statsRoutes.js";
 
 const app = express();
 
@@ -41,6 +42,7 @@ app.use("/api/home-servis", homeServisRoutes);
 app.use("/api/pengaturan", pengaturanRoutes);
 app.use("/api/testimoni", testimoniRoutes);
 app.use("/api/tentang", tentangRoutes);
+app.use("/api/stats", statsRoutes);
 
 // 404 handler
 app.use((req, res) => {
