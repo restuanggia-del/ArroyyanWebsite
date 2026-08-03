@@ -10,6 +10,7 @@ import BeritaList from "../pages/Berita/BeritaList.jsx";
 import BeritaForm from "../pages/Berita/BeritaForm.jsx";
 import Banner from "../pages/Banner.jsx";
 import Testimoni from "../pages/Testimoni.jsx";
+import Tentang from "../pages/Tentang.jsx";
 import HomeServis from "../pages/HomeServis.jsx";
 import Kontak from "../pages/Kontak.jsx";
 import Pengaturan from "../pages/Pengaturan.jsx";
@@ -114,6 +115,16 @@ function AppRoutes() {
           <ProtectedRoute>
             <AdminLayout>
               <Testimoni />
+            </AdminLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/tentang"
+        element={
+          <ProtectedRoute>
+            <AdminLayout>
+              <Tentang />
             </AdminLayout>
           </ProtectedRoute>
         }

@@ -33,6 +33,9 @@ function Sidebar() {
           <NavLink to="/testimoni" className={linkClass}>
             Testimoni
           </NavLink>
+          <NavLink to="/tentang" className={linkClass}>
+            Tentang
+          </NavLink>
           <NavLink to="/home-servis" className={linkClass}>
             Home Servis
           </NavLink>

@@ -10,6 +10,7 @@ import kontakRoutes from "./routes/kontakRoutes.js";
 import homeServisRoutes from "./routes/homeServisRoutes.js";
 import pengaturanRoutes from "./routes/pengaturanRoutes.js";
 import testimoniRoutes from "./routes/testimoniRoutes.js";
+import tentangRoutes from "./routes/tentangRoutes.js";
 
 const app = express();
 
@@ -39,6 +40,7 @@ app.use("/api/kontak", kontakRoutes);
 app.use("/api/home-servis", homeServisRoutes);
 app.use("/api/pengaturan", pengaturanRoutes);
 app.use("/api/testimoni", testimoniRoutes);
+app.use("/api/tentang", tentangRoutes);
 
 // 404 handler
 app.use((req, res) => {
