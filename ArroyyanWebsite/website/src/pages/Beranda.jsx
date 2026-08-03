@@ -209,15 +209,40 @@ function Beranda() {
         </h2>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {produkUnggulan.map((produk) => (
-            <div
+            <Link
               key={produk._id}
-              className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition-shadow duration-200 hover:shadow-md"
+              to={`/produk/${produk._id}`}
+              className="group block overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-md"
             >
-              <h3 className="text-base font-semibold text-secondary sm:text-lg">
-                {produk.nama}
-              </h3>
-              <p className="mt-2 text-sm text-gray-500">{produk.volume}</p>
-            </div>
+              <div className="aspect-video w-full overflow-hidden bg-gray-100">
+                {produk.gambar ? (
+                  <img
+                    src={`${API_BASE_URL}${produk.gambar}`}
+                    alt={produk.nama}
+                    className="h-full w-full object-cover transition group-hover:scale-105"
+                  />
+                ) : (
+                  <div className="flex h-full items-center justify-center text-sm text-gray-400">
+                    Belum ada gambar
+                  </div>
+                )}
+              </div>
+              <div className="p-4">
+                <h3 className="text-base font-semibold text-secondary sm:text-lg">
+                  {produk.nama}
+                </h3>
+                <p className="mt-1 text-sm text-gray-500">{produk.volume}</p>
+                {produk.harga ? (
+                  <p className="mt-2 font-semibold text-primary">
+                    {new Intl.NumberFormat("id-ID", {
+                      style: "currency",
+                      currency: "IDR",
+                      minimumFractionDigits: 0,
+                    }).format(produk.harga)}
+                  </p>
+                ) : null}
+              </div>
+            </Link>
           ))}
         </div>
         <div className="mt-8 flex justify-center sm:justify-end">
