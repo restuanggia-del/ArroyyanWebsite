@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { getPengaturan } from "../../services/pengaturanService.js";
 
 function Footer() {
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [pengaturan, setPengaturan] = useState(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -13,6 +15,12 @@ function Footer() {
     handleScroll();
 
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    getPengaturan()
+      .then((res) => setPengaturan(res.data))
+      .catch(() => {});
   }, []);
 
   const scrollToTop = () => {
@@ -63,10 +71,10 @@ function Footer() {
           <h4 className="mb-3 font-semibold">Hubungi Kami</h4>
           <ul className="space-y-2 text-sm text-gray-300">
             <li className="max-w-xs">
-              Jl. Malabar No.88 Bogatama, Penawar Tama, Tulang Bawang, Lampung
+              {pengaturan?.alamat || "Alamat belum diisi di Admin Panel"}
             </li>
-            <li>0812-3456-7890</li>
-            <li>info@arroyyan99.com</li>
+            <li>{pengaturan?.telepon || "-"}</li>
+            <li>{pengaturan?.email || "-"}</li>
           </ul>
         </div>
       </div>

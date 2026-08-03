@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { kirimPesanKontak } from "../services/kontakService.js";
+import { getPengaturan } from "../services/pengaturanService.js";
 import MapEmbed from "../components/common/MapEmbed.jsx";
 
 function Kontak() {
@@ -10,6 +11,13 @@ function Kontak() {
     pesan: "",
   });
   const [status, setStatus] = useState(null);
+  const [pengaturan, setPengaturan] = useState(null);
+
+  useEffect(() => {
+    getPengaturan()
+      .then((res) => setPengaturan(res.data))
+      .catch(() => {});
+  }, []);
 
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -31,13 +39,23 @@ function Kontak() {
 
       <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
         <div>
-          <p className="mb-2 text-gray-600">Telepon: 0812-3456-7890</p>
-          <p className="mb-2 text-gray-600">Email: info@arroyyan99.com</p>
+          <p className="mb-2 text-gray-600">
+            Alamat: {pengaturan?.alamat || "-"}
+          </p>
+          <p className="mb-2 text-gray-600">
+            Telepon: {pengaturan?.telepon || "-"}
+          </p>
+          <p className="mb-2 text-gray-600">
+            Email: {pengaturan?.email || "-"}
+          </p>
           <div className="mt-6">
-            <MapEmbed
-              src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d402.191539341772!2d105.48303621142395!3d-4.186876230866167!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sid!2sid!4v1785470467584!5m2!1sid!2sid"
-              height="18rem"
-            />
+            {pengaturan?.mapsEmbedUrl ? (
+              <MapEmbed src={pengaturan.mapsEmbedUrl} height="18rem" />
+            ) : (
+              <div className="flex h-72 items-center justify-center rounded-xl bg-gray-100 text-sm text-gray-400">
+                Peta belum diatur di Admin Panel &gt; Pengaturan
+              </div>
+            )}
           </div>
         </div>
 

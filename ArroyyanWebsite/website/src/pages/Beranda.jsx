@@ -387,9 +387,15 @@ function Beranda() {
         <h2 className="mb-6 text-center text-2xl font-bold text-secondary sm:mb-8 sm:text-3xl">
           Lokasi Kami
         </h2>
-        <div className="overflow-hidden rounded-2xl border border-slate-200 shadow-sm">
-          <MapEmbed src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d402.191539341772!2d105.48303621142395!3d-4.186876230866167!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sid!2sid!4v1785470467584!5m2!1sid!2sid" />
-        </div>
+        {pengaturan?.mapsEmbedUrl ? (
+          <div className="overflow-hidden rounded-2xl border border-slate-200 shadow-sm">
+            <MapEmbed src={pengaturan.mapsEmbedUrl} />
+          </div>
+        ) : (
+          <div className="flex h-96 items-center justify-center rounded-xl bg-gray-100 text-sm text-gray-400">
+            Peta belum diatur di Admin Panel &gt; Pengaturan
+          </div>
+        )}
       </section>
 
       {/* CTA */}
