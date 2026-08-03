@@ -87,7 +87,7 @@ function HomeServis() {
             value={form.areaCakupan}
             onChange={handleChange}
             rows={2}
-            placeholder="Contoh: Terbanggi Besar, Bandar Jaya, Kota Gajah, dst (pisahkan dengan koma)"
+            placeholder="Contoh: Bogatama, Penawar Tama, Penawar Aji, Rawapitu, dst (pisahkan dengan koma)"
             className="w-full rounded-lg border px-4 py-2"
           />
         </div>
