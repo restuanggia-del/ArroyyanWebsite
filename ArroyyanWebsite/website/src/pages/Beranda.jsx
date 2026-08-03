@@ -9,6 +9,7 @@ import { getProdukUnggulan } from "../services/produkService.js";
 import { getAllBanner } from "../services/bannerService.js";
 import { getPengaturan } from "../services/pengaturanService.js";
 import { getAllTestimoni } from "../services/testimoniService.js";
+import { getAllBerita } from "../services/beritaService.js";
 import MapEmbed from "../components/common/MapEmbed.jsx";
 
 const API_BASE_URL = import.meta.env.VITE_API_URL.replace("/api", "");
@@ -134,6 +135,7 @@ function Beranda() {
   const [loadingBanner, setLoadingBanner] = useState(true);
   const [pengaturan, setPengaturan] = useState(null);
   const [testimoni, setTestimoni] = useState([]);
+  const [beritaTerbaru, setBeritaTerbaru] = useState([]);
 
   useEffect(() => {
     getAllBanner()
@@ -148,6 +150,9 @@ function Beranda() {
       .catch(() => {});
     getAllTestimoni()
       .then((res) => setTestimoni(res.data))
+      .catch(() => {});
+    getAllBerita()
+      .then((res) => setBeritaTerbaru(res.data.slice(0, 3)))
       .catch(() => {});
   }, []);
 
@@ -403,6 +408,57 @@ function Beranda() {
                 </SwiperSlide>
               ))}
             </Swiper>
+          </div>
+        </section>
+      )}
+
+      {/* Berita Terkini */}
+      {beritaTerbaru.length > 0 && (
+        <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16">
+          <h2 className="mb-6 text-center text-2xl font-bold text-secondary sm:mb-8 sm:text-3xl">
+            Berita Terkini
+          </h2>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {beritaTerbaru.map((item) => (
+              <Link
+                key={item._id}
+                to={`/berita/${item.slug}`}
+                className="group block overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-md"
+              >
+                <div className="aspect-video w-full overflow-hidden bg-gray-100">
+                  {item.gambar ? (
+                    <img
+                      src={`${API_BASE_URL}${item.gambar}`}
+                      alt={item.judul}
+                      className="h-full w-full object-cover transition group-hover:scale-105"
+                    />
+                  ) : (
+                    <div className="flex h-full items-center justify-center text-sm text-gray-400">
+                      Belum ada gambar
+                    </div>
+                  )}
+                </div>
+                <div className="p-4">
+                  <span className="mb-2 inline-block rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium capitalize text-primary">
+                    {item.kategori}
+                  </span>
+                  <h3 className="mb-1 text-base font-semibold text-secondary sm:text-lg">
+                    {item.judul}
+                  </h3>
+                  <p className="text-sm text-gray-500 line-clamp-2">
+                    {item.ringkasan}
+                  </p>
+                </div>
+              </Link>
+            ))}
+          </div>
+          <div className="mt-8 flex justify-center sm:justify-end">
+            <Link
+              to="/berita"
+              className="rounded-full bg-primary px-5 py-3 text-sm font-semibold text-white transition hover:bg-sky-700 sm:px-6"
+            >
+              Lihat Semua Berita
+            </Link>
           </div>
         </section>
       )}
