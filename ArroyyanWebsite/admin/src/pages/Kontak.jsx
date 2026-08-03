@@ -1,23 +1,103 @@
 import { useEffect, useState } from "react";
-import api from "../services/api.js";
+import {
+  getAllKontak,
+  toggleDibaca,
+  deleteKontak,
+} from "../services/kontakService.js";
+
+function formatTanggal(iso) {
+  return new Date(iso).toLocaleString("id-ID", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+}
 
 function Kontak() {
   const [pesan, setPesan] = useState([]);
 
+  const fetchPesan = () => {
+    getAllKontak()
+      .then((res) => setPesan(res.data))
+      .catch(() => {});
+  };
+
   useEffect(() => {
-    api.get("/kontak").then((res) => setPesan(res.data)).catch(() => {});
+    fetchPesan();
   }, []);
+
+  const handleToggleDibaca = async (id) => {
+    await toggleDibaca(id);
+    fetchPesan();
+  };
+
+  const handleDelete = async (id) => {
+    if (!confirm("Yakin ingin menghapus pesan ini?")) return;
+    await deleteKontak(id);
+    fetchPesan();
+  };
+
+  const jumlahBelumDibaca = pesan.filter((p) => !p.dibaca).length;
 
   return (
     <div>
-      <h1 className="mb-6 text-2xl font-bold text-secondary">Pesan Masuk</h1>
+      <div className="mb-6 flex items-center gap-3">
+        <h1 className="text-2xl font-bold text-secondary">Pesan Masuk</h1>
+        {jumlahBelumDibaca > 0 && (
+          <span className="rounded-full bg-red-100 px-3 py-1 text-xs font-semibold text-red-600">
+            {jumlahBelumDibaca} belum dibaca
+          </span>
+        )}
+      </div>
+
       <div className="space-y-3">
         {pesan.map((item) => (
-          <div key={item._id} className="rounded-xl border bg-white p-4 shadow-sm">
-            <p className="font-semibold">{item.nama} — {item.email}</p>
-            <p className="mt-1 text-sm text-gray-600">{item.pesan}</p>
+          <div
+            key={item._id}
+            className={`rounded-xl border p-4 shadow-sm ${item.dibaca ? "bg-white" : "border-primary bg-primary/5"}`}
+          >
+            <div className="mb-1 flex items-start justify-between gap-4">
+              <div>
+                <p className="font-semibold text-secondary">
+                  {item.nama}
+                  {!item.dibaca && (
+                    <span className="ml-2 inline-block h-2 w-2 rounded-full bg-primary align-middle" />
+                  )}
+                </p>
+                <p className="text-xs text-gray-400">
+                  {item.email}
+                  {item.telepon ? ` • ${item.telepon}` : ""}
+                </p>
+              </div>
+              <p className="whitespace-nowrap text-xs text-gray-400">
+                {formatTanggal(item.createdAt)}
+              </p>
+            </div>
+
+            <p className="mt-2 text-sm text-gray-600">{item.pesan}</p>
+
+            <div className="mt-3 flex gap-4 text-xs">
+              <button
+                onClick={() => handleToggleDibaca(item._id)}
+                className="font-medium text-primary hover:underline"
+              >
+                {item.dibaca ? "Tandai Belum Dibaca" : "Tandai Sudah Dibaca"}
+              </button>
+              <button
+                onClick={() => handleDelete(item._id)}
+                className="font-medium text-red-500 hover:underline"
+              >
+                Hapus
+              </button>
+            </div>
           </div>
         ))}
+
+        {pesan.length === 0 && (
+          <p className="text-sm text-gray-400">Belum ada pesan masuk.</p>
+        )}
       </div>
     </div>
   );
