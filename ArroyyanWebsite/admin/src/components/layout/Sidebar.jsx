@@ -45,6 +45,9 @@ function Sidebar() {
           <NavLink to="/pengaturan" className={linkClass}>
             Pengaturan
           </NavLink>
+          <NavLink to="/tambah-admin" className={linkClass}>
+            Tambah Admin
+          </NavLink>
         </nav>
       </div>
       <div className="border-t pt-4">
