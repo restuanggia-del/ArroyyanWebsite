@@ -8,6 +8,8 @@ import HomeServis from "../pages/HomeServis.jsx";
 import BeritaList from "../pages/Berita/BeritaList.jsx";
 import BeritaDetail from "../pages/Berita/BeritaDetail.jsx";
 import Kontak from "../pages/Kontak.jsx";
+import KebijakanPrivasi from "../pages/KebijakanPrivasi.jsx";
+import SyaratKetentuan from "../pages/SyaratKetentuan.jsx";
 
 function AppRoutes() {
   return (
@@ -21,6 +23,8 @@ function AppRoutes() {
       <Route path="/berita" element={<BeritaList />} />
       <Route path="/berita/:slug" element={<BeritaDetail />} />
       <Route path="/kontak" element={<Kontak />} />
+      <Route path="/kebijakan-privasi" element={<KebijakanPrivasi />} />
+      <Route path="/syarat-ketentuan" element={<SyaratKetentuan />} />
     </Routes>
   );
 }

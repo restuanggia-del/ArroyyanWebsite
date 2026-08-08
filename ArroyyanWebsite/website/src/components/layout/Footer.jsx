@@ -89,6 +89,15 @@ function Footer() {
         </button>
       )}
 
+      <div className="border-t border-white/10 py-3 text-center text-xs text-gray-400">
+        <Link to="/kebijakan-privasi" className="hover:text-primary">
+          Kebijakan Privasi
+        </Link>
+        <span className="mx-2">•</span>
+        <Link to="/syarat-ketentuan" className="hover:text-primary">
+          Syarat & Ketentuan
+        </Link>
+      </div>
       <div className="border-t border-white/10 py-4 text-center text-xs text-gray-400">
         &copy; Arroyyan 2026. Seluruh hak cipta dilindungi.
       </div>
