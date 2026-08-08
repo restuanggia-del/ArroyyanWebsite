@@ -4,6 +4,7 @@ import {
   createBanner,
   deleteBanner,
 } from "../services/bannerService.js";
+import ConfirmDialog from "../components/common/ConfirmDialog.jsx";
 
 const API_BASE_URL = import.meta.env.VITE_API_URL.replace("/api", "");
 
@@ -14,6 +15,8 @@ function Banner() {
   const [gambar, setGambar] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [idAkanDihapus, setIdAkanDihapus] = useState(null);
+  const [menghapus, setMenghapus] = useState(false);
 
   const fetchBanners = () => {
     getAllBanner()
@@ -51,10 +54,15 @@ function Banner() {
     }
   };
 
-  const handleDelete = async (id) => {
-    if (!confirm("Yakin ingin menghapus banner ini?")) return;
-    await deleteBanner(id);
-    fetchBanners();
+  const konfirmasiHapus = async () => {
+    setMenghapus(true);
+    try {
+      await deleteBanner(idAkanDihapus);
+      fetchBanners();
+    } finally {
+      setMenghapus(false);
+      setIdAkanDihapus(null);
+    }
   };
 
   return (
@@ -142,7 +150,7 @@ function Banner() {
               </p>
               <p className="text-xs text-gray-400">Urutan: {item.urutan}</p>
               <button
-                onClick={() => handleDelete(item._id)}
+                onClick={() => setIdAkanDihapus(item._id)}
                 className="mt-2 text-xs text-red-500 hover:underline"
               >
                 Hapus
@@ -156,6 +164,15 @@ function Banner() {
           </p>
         )}
       </div>
+
+      <ConfirmDialog
+        open={Boolean(idAkanDihapus)}
+        title="Hapus Banner"
+        message="Yakin ingin menghapus banner ini? Tindakan ini tidak bisa dibatalkan."
+        loading={menghapus}
+        onConfirm={konfirmasiHapus}
+        onCancel={() => setIdAkanDihapus(null)}
+      />
     </div>
   );
 }

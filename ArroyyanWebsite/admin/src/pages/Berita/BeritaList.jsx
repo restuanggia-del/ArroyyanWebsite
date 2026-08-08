@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getAllBerita, deleteBerita } from "../../services/beritaService.js";
+import ConfirmDialog from "../../components/common/ConfirmDialog.jsx";
 
 function BeritaList() {
   const [berita, setBerita] = useState([]);
+  const [idAkanDihapus, setIdAkanDihapus] = useState(null);
+  const [menghapus, setMenghapus] = useState(false);
 
   const fetchBerita = () => {
     getAllBerita()
@@ -15,10 +18,15 @@ function BeritaList() {
     fetchBerita();
   }, []);
 
-  const handleDelete = async (id) => {
-    if (!confirm("Yakin ingin menghapus berita ini?")) return;
-    await deleteBerita(id);
-    fetchBerita();
+  const konfirmasiHapus = async () => {
+    setMenghapus(true);
+    try {
+      await deleteBerita(idAkanDihapus);
+      fetchBerita();
+    } finally {
+      setMenghapus(false);
+      setIdAkanDihapus(null);
+    }
   };
 
   return (
@@ -62,7 +70,7 @@ function BeritaList() {
                   Edit
                 </Link>
                 <button
-                  onClick={() => handleDelete(item._id)}
+                  onClick={() => setIdAkanDihapus(item._id)}
                   className="text-red-500 hover:underline"
                 >
                   Hapus
@@ -79,6 +87,15 @@ function BeritaList() {
           )}
         </tbody>
       </table>
+
+      <ConfirmDialog
+        open={Boolean(idAkanDihapus)}
+        title="Hapus Berita"
+        message="Yakin ingin menghapus berita ini? Tindakan ini tidak bisa dibatalkan."
+        loading={menghapus}
+        onConfirm={konfirmasiHapus}
+        onCancel={() => setIdAkanDihapus(null)}
+      />
     </div>
   );
 }

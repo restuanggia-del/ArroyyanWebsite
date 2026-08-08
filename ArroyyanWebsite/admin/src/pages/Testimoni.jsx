@@ -4,6 +4,7 @@ import {
   createTestimoni,
   deleteTestimoni,
 } from "../services/testimoniService.js";
+import ConfirmDialog from "../components/common/ConfirmDialog.jsx";
 
 const API_BASE_URL = import.meta.env.VITE_API_URL.replace("/api", "");
 
@@ -54,10 +55,18 @@ function Testimoni() {
     }
   };
 
-  const handleDelete = async (id) => {
-    if (!confirm("Yakin ingin menghapus testimoni ini?")) return;
-    await deleteTestimoni(id);
-    fetchTestimoni();
+  const [idAkanDihapus, setIdAkanDihapus] = useState(null);
+  const [menghapus, setMenghapus] = useState(false);
+
+  const konfirmasiHapus = async () => {
+    setMenghapus(true);
+    try {
+      await deleteTestimoni(idAkanDihapus);
+      fetchTestimoni();
+    } finally {
+      setMenghapus(false);
+      setIdAkanDihapus(null);
+    }
   };
 
   return (
@@ -174,7 +183,7 @@ function Testimoni() {
               {"☆".repeat(5 - item.rating)}
             </p>
             <button
-              onClick={() => handleDelete(item._id)}
+              onClick={() => setIdAkanDihapus(item._id)}
               className="mt-2 text-xs text-red-500 hover:underline"
             >
               Hapus
@@ -185,6 +194,15 @@ function Testimoni() {
           <p className="text-sm text-gray-400">Belum ada testimoni.</p>
         )}
       </div>
+
+      <ConfirmDialog
+        open={Boolean(idAkanDihapus)}
+        title="Hapus Testimoni"
+        message="Yakin ingin menghapus testimoni ini? Tindakan ini tidak bisa dibatalkan."
+        loading={menghapus}
+        onConfirm={konfirmasiHapus}
+        onCancel={() => setIdAkanDihapus(null)}
+      />
     </div>
   );
 }
