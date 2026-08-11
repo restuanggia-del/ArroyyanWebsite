@@ -19,7 +19,13 @@ function Sidebar() {
   return (
     <aside className="flex h-screen w-64 flex-col justify-between border-r bg-white p-4">
       <div>
-        <h2 className="mb-6 text-lg font-bold text-primary">Arroyyan Admin</h2>
+        <div className="mb-6 flex justify-center">
+          <img
+            src="/logo-arroyyan.png"
+            alt="Logo Arroyyan99"
+            className="h-12 w-auto"
+          />
+        </div>
         <nav className="space-y-1">
           <NavLink to="/" className={linkClass} end>
             Dashboard
