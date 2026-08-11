@@ -162,7 +162,7 @@ function Beranda() {
   return (
     <div>
       {/* Banner Slider */}
-      <section className="relative h-[260px] sm:h-[340px] md:h-[500px]">
+      <section className="relative aspect-video w-full max-h-[600px] overflow-hidden">
         {loadingBanner ? (
           <div className="flex h-full items-center justify-center bg-gray-100 text-sm text-gray-400 sm:text-base">
             Memuat banner...
