@@ -27,8 +27,8 @@ function ProdukList() {
   }, [kategori]);
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-16">
-      <h1 className="mb-2 text-3xl font-bold text-secondary">
+    <div className="mx-auto max-w-5xl px-4 py-8 text-center sm:py-16 sm:text-left">
+      <h1 className="mb-8 text-3xl font-bold text-secondary">
         Produk Arroyyan
       </h1>
       <p className="mb-8 text-gray-500">
