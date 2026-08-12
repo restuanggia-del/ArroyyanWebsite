@@ -5,6 +5,7 @@ import {
   deleteBanner,
 } from "../services/bannerService.js";
 import ConfirmDialog from "../components/common/ConfirmDialog.jsx";
+import Toast from "../components/common/Toast.jsx";
 
 const API_BASE_URL = import.meta.env.VITE_API_URL.replace("/api", "");
 
@@ -17,6 +18,15 @@ function Banner() {
   const [error, setError] = useState("");
   const [idAkanDihapus, setIdAkanDihapus] = useState(null);
   const [menghapus, setMenghapus] = useState(false);
+  const [toast, setToast] = useState({
+    show: false,
+    message: "",
+    type: "success",
+  });
+
+  const tampilkanToast = (message, type = "success") => {
+    setToast({ show: true, message, type });
+  };
 
   const fetchBanners = () => {
     getAllBanner()
@@ -47,8 +57,11 @@ function Banner() {
       setGambar(null);
       e.target.reset();
       fetchBanners();
+      tampilkanToast("Banner berhasil diunggah");
     } catch (err) {
-      setError(err.response?.data?.message || "Gagal mengunggah banner");
+      const pesan = err.response?.data?.message || "Gagal mengunggah banner";
+      setError(pesan);
+      tampilkanToast(pesan, "error");
     } finally {
       setLoading(false);
     }
@@ -59,6 +72,12 @@ function Banner() {
     try {
       await deleteBanner(idAkanDihapus);
       fetchBanners();
+      tampilkanToast("Banner berhasil dihapus");
+    } catch (err) {
+      tampilkanToast(
+        err.response?.data?.message || "Gagal menghapus banner",
+        "error",
+      );
     } finally {
       setMenghapus(false);
       setIdAkanDihapus(null);
@@ -172,6 +191,13 @@ function Banner() {
         loading={menghapus}
         onConfirm={konfirmasiHapus}
         onCancel={() => setIdAkanDihapus(null)}
+      />
+
+      <Toast
+        show={toast.show}
+        message={toast.message}
+        type={toast.type}
+        onClose={() => setToast({ ...toast, show: false })}
       />
     </div>
   );

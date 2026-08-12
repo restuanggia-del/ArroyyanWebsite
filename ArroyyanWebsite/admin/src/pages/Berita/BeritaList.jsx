@@ -1,12 +1,32 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { getAllBerita, deleteBerita } from "../../services/beritaService.js";
 import ConfirmDialog from "../../components/common/ConfirmDialog.jsx";
+import Toast from "../../components/common/Toast.jsx";
 
 function BeritaList() {
   const [berita, setBerita] = useState([]);
   const [idAkanDihapus, setIdAkanDihapus] = useState(null);
   const [menghapus, setMenghapus] = useState(false);
+  const [toast, setToast] = useState({
+    show: false,
+    message: "",
+    type: "success",
+  });
+
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const tampilkanToast = (message, type = "success") => {
+    setToast({ show: true, message, type });
+  };
+
+  useEffect(() => {
+    if (location.state?.toast) {
+      tampilkanToast(location.state.toast);
+      navigate(location.pathname, { replace: true, state: {} });
+    }
+  }, [location.state]);
 
   const fetchBerita = () => {
     getAllBerita()
@@ -23,6 +43,12 @@ function BeritaList() {
     try {
       await deleteBerita(idAkanDihapus);
       fetchBerita();
+      tampilkanToast("Berita berhasil dihapus");
+    } catch (err) {
+      tampilkanToast(
+        err.response?.data?.message || "Gagal menghapus berita",
+        "error",
+      );
     } finally {
       setMenghapus(false);
       setIdAkanDihapus(null);
@@ -95,6 +121,13 @@ function BeritaList() {
         loading={menghapus}
         onConfirm={konfirmasiHapus}
         onCancel={() => setIdAkanDihapus(null)}
+      />
+
+      <Toast
+        show={toast.show}
+        message={toast.message}
+        type={toast.type}
+        onClose={() => setToast({ ...toast, show: false })}
       />
     </div>
   );

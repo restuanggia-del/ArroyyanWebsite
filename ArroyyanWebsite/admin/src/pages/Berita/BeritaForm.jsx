@@ -77,7 +77,13 @@ function BeritaForm() {
       } else {
         await createBerita(formData);
       }
-      navigate("/berita");
+      navigate("/berita", {
+        state: {
+          toast: isEdit
+            ? "Berita berhasil diperbarui"
+            : "Berita berhasil ditambahkan",
+        },
+      });
     } catch (err) {
       alert(err.response?.data?.message || "Gagal menyimpan berita");
     } finally {

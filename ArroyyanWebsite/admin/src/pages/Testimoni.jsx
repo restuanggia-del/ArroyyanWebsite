@@ -5,6 +5,7 @@ import {
   deleteTestimoni,
 } from "../services/testimoniService.js";
 import ConfirmDialog from "../components/common/ConfirmDialog.jsx";
+import Toast from "../components/common/Toast.jsx";
 
 const API_BASE_URL = import.meta.env.VITE_API_URL.replace("/api", "");
 
@@ -17,6 +18,17 @@ function Testimoni() {
   const [foto, setFoto] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [idAkanDihapus, setIdAkanDihapus] = useState(null);
+  const [menghapus, setMenghapus] = useState(false);
+  const [toast, setToast] = useState({
+    show: false,
+    message: "",
+    type: "success",
+  });
+
+  const tampilkanToast = (message, type = "success") => {
+    setToast({ show: true, message, type });
+  };
 
   const fetchTestimoni = () => {
     getAllTestimoni()
@@ -48,21 +60,28 @@ function Testimoni() {
       setFoto(null);
       e.target.reset();
       fetchTestimoni();
+      tampilkanToast("Testimoni berhasil ditambahkan");
     } catch (err) {
-      setError(err.response?.data?.message || "Gagal menyimpan testimoni");
+      const pesanError =
+        err.response?.data?.message || "Gagal menyimpan testimoni";
+      setError(pesanError);
+      tampilkanToast(pesanError, "error");
     } finally {
       setLoading(false);
     }
   };
-
-  const [idAkanDihapus, setIdAkanDihapus] = useState(null);
-  const [menghapus, setMenghapus] = useState(false);
 
   const konfirmasiHapus = async () => {
     setMenghapus(true);
     try {
       await deleteTestimoni(idAkanDihapus);
       fetchTestimoni();
+      tampilkanToast("Testimoni berhasil dihapus");
+    } catch (err) {
+      tampilkanToast(
+        err.response?.data?.message || "Gagal menghapus testimoni",
+        "error",
+      );
     } finally {
       setMenghapus(false);
       setIdAkanDihapus(null);
@@ -75,7 +94,6 @@ function Testimoni() {
         Kelola Testimoni
       </h1>
 
-      {/* Form tambah testimoni */}
       <form
         onSubmit={handleSubmit}
         className="mb-8 max-w-xl space-y-4 rounded-xl bg-white p-6 shadow-sm"
@@ -153,7 +171,6 @@ function Testimoni() {
         </button>
       </form>
 
-      {/* Daftar testimoni */}
       <h2 className="mb-4 text-lg font-semibold text-secondary">
         Testimoni ({daftar.length})
       </h2>
@@ -202,6 +219,13 @@ function Testimoni() {
         loading={menghapus}
         onConfirm={konfirmasiHapus}
         onCancel={() => setIdAkanDihapus(null)}
+      />
+
+      <Toast
+        show={toast.show}
+        message={toast.message}
+        type={toast.type}
+        onClose={() => setToast({ ...toast, show: false })}
       />
     </div>
   );
