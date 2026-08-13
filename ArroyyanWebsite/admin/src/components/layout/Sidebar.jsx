@@ -177,21 +177,12 @@ function Sidebar() {
   return (
     <aside className="flex h-screen w-64 shrink-0 flex-col justify-between overflow-y-auto bg-[#eaf2fd] p-4">
       <div>
-        <div className="mb-8 flex items-center gap-2.5 px-1 pt-2">
-          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-500 text-white shadow-[4px_4px_10px_rgba(37,99,235,0.35),-2px_-2px_6px_rgba(255,255,255,0.5)]">
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              className="h-5 w-5"
-            >
-              <path d="M13 2 3 14h7l-1 8 11-14h-7l1-6Z" />
-            </svg>
-          </div>
-          <span className="truncate text-base font-bold tracking-tight text-slate-900">
-            Arroyyan99
-          </span>
+        <div className="mb-8 flex items-center justify-center gap-2.5 px-1 pt-2">
+          <img
+            src="/logo-arroyyan.png"
+            alt="Logo Arroyyan99"
+            className="h-12 w-auto"
+          />
         </div>
 
         <nav className="space-y-5">
