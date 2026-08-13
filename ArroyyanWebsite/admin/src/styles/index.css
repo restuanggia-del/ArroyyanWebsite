@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+  background-color: #f4f6fb;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;

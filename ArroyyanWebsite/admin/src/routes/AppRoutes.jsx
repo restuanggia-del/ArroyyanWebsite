@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import ProtectedRoute from "../components/layout/ProtectedRoute.jsx";
 import Sidebar from "../components/layout/Sidebar.jsx";
+import Topbar from "../components/layout/Topbar.jsx";
 
 import Login from "../pages/Auth/Login.jsx";
 import Dashboard from "../pages/Dashboard.jsx";
@@ -16,11 +17,14 @@ import Kontak from "../pages/Kontak.jsx";
 import Pengaturan from "../pages/Pengaturan.jsx";
 import TambahAdmin from "../pages/TambahAdmin.jsx";
 
-function AdminLayout({ children }) {
+function AdminLayout({ children, title }) {
   return (
-    <div className="flex">
+    <div className="flex min-h-screen bg-[#eaf2fd]">
       <Sidebar />
-      <main className="flex-1 p-8">{children}</main>
+      <div className="flex min-h-screen flex-1 flex-col">
+        <Topbar title={title} />
+        <main className="flex-1 p-6 lg:p-8">{children}</main>
+      </div>
     </div>
   );
 }
@@ -34,7 +38,7 @@ function AppRoutes() {
         path="/"
         element={
           <ProtectedRoute>
-            <AdminLayout>
+            <AdminLayout title="Dashboard">
               <Dashboard />
             </AdminLayout>
           </ProtectedRoute>
@@ -44,7 +48,7 @@ function AppRoutes() {
         path="/produk"
         element={
           <ProtectedRoute>
-            <AdminLayout>
+            <AdminLayout title="Produk">
               <ProdukList />
             </AdminLayout>
           </ProtectedRoute>
@@ -54,7 +58,7 @@ function AppRoutes() {
         path="/produk/tambah"
         element={
           <ProtectedRoute>
-            <AdminLayout>
+            <AdminLayout title="Form Produk">
               <ProdukForm />
             </AdminLayout>
           </ProtectedRoute>
@@ -64,7 +68,7 @@ function AppRoutes() {
         path="/produk/edit/:id"
         element={
           <ProtectedRoute>
-            <AdminLayout>
+            <AdminLayout title="Form Produk">
               <ProdukForm />
             </AdminLayout>
           </ProtectedRoute>
@@ -74,7 +78,7 @@ function AppRoutes() {
         path="/berita"
         element={
           <ProtectedRoute>
-            <AdminLayout>
+            <AdminLayout title="Berita">
               <BeritaList />
             </AdminLayout>
           </ProtectedRoute>
@@ -84,7 +88,7 @@ function AppRoutes() {
         path="/berita/tambah"
         element={
           <ProtectedRoute>
-            <AdminLayout>
+            <AdminLayout title="Form Berita">
               <BeritaForm />
             </AdminLayout>
           </ProtectedRoute>
@@ -94,7 +98,7 @@ function AppRoutes() {
         path="/berita/edit/:id"
         element={
           <ProtectedRoute>
-            <AdminLayout>
+            <AdminLayout title="Form Berita">
               <BeritaForm />
             </AdminLayout>
           </ProtectedRoute>
@@ -104,7 +108,7 @@ function AppRoutes() {
         path="/banner"
         element={
           <ProtectedRoute>
-            <AdminLayout>
+            <AdminLayout title="Banner">
               <Banner />
             </AdminLayout>
           </ProtectedRoute>
@@ -114,7 +118,7 @@ function AppRoutes() {
         path="/testimoni"
         element={
           <ProtectedRoute>
-            <AdminLayout>
+            <AdminLayout title="Testimoni">
               <Testimoni />
             </AdminLayout>
           </ProtectedRoute>
@@ -124,7 +128,7 @@ function AppRoutes() {
         path="/tentang"
         element={
           <ProtectedRoute>
-            <AdminLayout>
+            <AdminLayout title="Tentang">
               <Tentang />
             </AdminLayout>
           </ProtectedRoute>
@@ -134,7 +138,7 @@ function AppRoutes() {
         path="/home-servis"
         element={
           <ProtectedRoute>
-            <AdminLayout>
+            <AdminLayout title="Home Servis">
               <HomeServis />
             </AdminLayout>
           </ProtectedRoute>
@@ -144,7 +148,7 @@ function AppRoutes() {
         path="/kontak"
         element={
           <ProtectedRoute>
-            <AdminLayout>
+            <AdminLayout title="Pesan Masuk">
               <Kontak />
             </AdminLayout>
           </ProtectedRoute>
@@ -154,7 +158,7 @@ function AppRoutes() {
         path="/pengaturan"
         element={
           <ProtectedRoute>
-            <AdminLayout>
+            <AdminLayout title="Pengaturan">
               <Pengaturan />
             </AdminLayout>
           </ProtectedRoute>
@@ -164,7 +168,7 @@ function AppRoutes() {
         path="/tambah-admin"
         element={
           <ProtectedRoute>
-            <AdminLayout>
+            <AdminLayout title="Tambah Admin">
               <TambahAdmin />
             </AdminLayout>
           </ProtectedRoute>

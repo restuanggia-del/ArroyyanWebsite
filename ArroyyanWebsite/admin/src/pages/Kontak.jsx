@@ -4,6 +4,7 @@ import {
   toggleDibaca,
   deleteKontak,
 } from "../services/kontakService.js";
+import { clayCardSm } from "../styles/ui.js";
 
 function formatTanggal(iso) {
   return new Date(iso).toLocaleString("id-ID", {
@@ -56,14 +57,14 @@ function Kontak() {
         {pesan.map((item) => (
           <div
             key={item._id}
-            className={`rounded-xl border p-4 shadow-sm ${item.dibaca ? "bg-white" : "border-primary bg-primary/5"}`}
+            className={`p-4 ${clayCardSm} ${item.dibaca ? "" : "ring-2 ring-blue-200"}`}
           >
             <div className="mb-1 flex items-start justify-between gap-4">
               <div>
                 <p className="font-semibold text-secondary">
                   {item.nama}
                   {!item.dibaca && (
-                    <span className="ml-2 inline-block h-2 w-2 rounded-full bg-primary align-middle" />
+                    <span className="ml-2 inline-block h-2 w-2 rounded-full bg-blue-500 align-middle" />
                   )}
                 </p>
                 <p className="text-xs text-gray-400">
@@ -81,7 +82,7 @@ function Kontak() {
             <div className="mt-3 flex gap-4 text-xs">
               <button
                 onClick={() => handleToggleDibaca(item._id)}
-                className="font-medium text-primary hover:underline"
+                className="font-medium text-blue-600 hover:underline"
               >
                 {item.dibaca ? "Tandai Belum Dibaca" : "Tandai Sudah Dibaca"}
               </button>
