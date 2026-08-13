@@ -65,7 +65,6 @@ const iconArrow = (
   </svg>
 );
 
-// Purely decorative sparkline bars — not tied to real historical values.
 function MiniBars({ heights, accent, dim }) {
   return (
     <div className="flex items-end gap-1">
@@ -154,7 +153,7 @@ function Dashboard() {
 
   return (
     <div>
-      <div className="relative overflow-hidden rounded-[32px] bg-gradient-to-br from-blue-500 via-cyan-500 to-blue-500 p-6 shadow-[10px_10px_28px_rgba(37,99,235,0.3),-6px_-6px_20px_rgba(255,255,255,0.5)] sm:p-8">
+      <div className="relative overflow-hidden rounded-[32px] bg-gradient-to-br from-blue-500 via-cyan-500 to-blue-700 p-6 shadow-[10px_10px_28px_rgba(37,99,235,0.3),-6px_-6px_20px_rgba(255,255,255,0.5)] sm:p-8">
         <div className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-white/10" />
         <div className="pointer-events-none absolute -bottom-20 right-24 h-40 w-40 rounded-full bg-white/10" />
 
@@ -193,7 +192,6 @@ function Dashboard() {
         </div>
       </div>
 
-      {/* Stat cards */}
       <div className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
         {kartu.map((item) => (
           <Link
@@ -232,7 +230,6 @@ function Dashboard() {
         ))}
       </div>
 
-      {/* Quick actions + account panel */}
       <div className="mt-6 grid grid-cols-1 gap-5 lg:grid-cols-3">
         <div className={`p-5 lg:col-span-2 ${clayCard}`}>
           <h2 className="mb-4 text-sm font-semibold text-secondary">

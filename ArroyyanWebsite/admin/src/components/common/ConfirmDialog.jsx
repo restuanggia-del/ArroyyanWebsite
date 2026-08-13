@@ -1,3 +1,4 @@
+import { createPortal } from "react-dom";
 import { clayCard, clayButtonPrimary } from "../../styles/ui.js";
 
 function ConfirmDialog({
@@ -11,16 +12,19 @@ function ConfirmDialog({
   onConfirm,
   onCancel,
 }) {
-  if (!open) return null;
+  if (!open || typeof document === "undefined") return null;
 
-  return (
+  return createPortal(
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/30 p-4 backdrop-blur-sm"
+      className="fixed inset-0 z-[9999] flex items-center justify-center bg-slate-900/30 p-4 backdrop-blur-sm"
       onClick={onCancel}
+      role="presentation"
     >
       <div
         className={`w-full max-w-sm p-6 ${clayCard}`}
         onClick={(e) => e.stopPropagation()}
+        role="dialog"
+        aria-modal="true"
       >
         <h3 className="mb-2 text-lg font-semibold text-secondary">{title}</h3>
         <p className="mb-6 text-sm text-gray-600">{message}</p>
@@ -45,7 +49,8 @@ function ConfirmDialog({
           </button>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }
 

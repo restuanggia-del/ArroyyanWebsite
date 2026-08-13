@@ -175,7 +175,7 @@ function Sidebar() {
   };
 
   return (
-    <aside className="flex h-screen w-64 shrink-0 flex-col justify-between overflow-y-auto bg-[#eaf2fd] p-4">
+    <aside className="sticky top-0 flex h-screen w-64 shrink-0 flex-col justify-between overflow-y-auto bg-[#eaf2fd] p-4">
       <div>
         <div className="mb-8 flex items-center justify-center gap-2.5 px-1 pt-2">
           <img
