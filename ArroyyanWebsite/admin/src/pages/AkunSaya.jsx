@@ -123,7 +123,7 @@ function AkunSaya() {
         </p>
       </div>
 
-      <div className="max-w-2xl space-y-5">
+      <div className="space-y-5">
         <form onSubmit={handleSimpanProfil}>
           <FormSection
             icon={iconUser}
@@ -162,7 +162,7 @@ function AkunSaya() {
               </div>
             )}
 
-            <div className="sm:col-span-2">
+            <div className="sm:col-span-2 flex justify-end">
               <button
                 type="submit"
                 disabled={loadingProfil}
@@ -234,7 +234,7 @@ function AkunSaya() {
               </div>
             )}
 
-            <div className="sm:col-span-2">
+            <div className="sm:col-span-2 flex justify-end">
               <button
                 type="submit"
                 disabled={loadingSandi}

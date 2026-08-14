@@ -81,23 +81,13 @@ function HomeServis() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <h1 className="text-2xl font-bold text-secondary">
-            Kelola Home Servis (Distribusi)
-          </h1>
-          <p className="mt-1 text-sm text-gray-500">
-            Konten ini tampil di halaman "Home Servis" pada website publik.
-          </p>
-        </div>
-        <button
-          type="submit"
-          disabled={loading}
-          className={`${clayButtonPrimary} px-5 py-2.5 text-sm font-semibold`}
-        >
-          {iconCheck}
-          {loading ? "Menyimpan..." : "Simpan Perubahan"}
-        </button>
+      <div className="mb-6">
+        <h1 className="text-2xl font-bold text-secondary">
+          Kelola Home Servis (Distribusi)
+        </h1>
+        <p className="mt-1 text-sm text-gray-500">
+          Konten ini tampil di halaman "Home Servis" pada website publik.
+        </p>
       </div>
 
       {sukses && (
@@ -172,6 +162,17 @@ function HomeServis() {
             />
           </div>
         </FormSection>
+      </div>
+
+      <div className="mt-6 flex justify-end">
+        <button
+          type="submit"
+          disabled={loading}
+          className={`${clayButtonPrimary} px-5 py-2.5 text-sm font-semibold`}
+        >
+          {iconCheck}
+          {loading ? "Menyimpan..." : "Simpan Perubahan"}
+        </button>
       </div>
     </form>
   );

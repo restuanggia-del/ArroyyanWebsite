@@ -151,23 +151,13 @@ function BeritaForm() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <h1 className="text-2xl font-bold text-secondary">
-            {isEdit ? "Edit Berita" : "Tambah Berita"}
-          </h1>
-          <p className="mt-1 text-sm text-gray-500">
-            Tulis kegiatan, penghargaan, atau promo terbaru Arroyyan99.
-          </p>
-        </div>
-        <button
-          type="submit"
-          disabled={loading}
-          className={`${clayButtonPrimary} px-5 py-2.5 text-sm font-semibold`}
-        >
-          {iconCheck}
-          {loading ? "Menyimpan..." : "Simpan Berita"}
-        </button>
+      <div className="mb-6">
+        <h1 className="text-2xl font-bold text-secondary">
+          {isEdit ? "Edit Berita" : "Tambah Berita"}
+        </h1>
+        <p className="mt-1 text-sm text-gray-500">
+          Tulis kegiatan, penghargaan, atau promo terbaru Arroyyan99.
+        </p>
       </div>
 
       {error && (
@@ -299,6 +289,17 @@ function BeritaForm() {
             </select>
           </div>
         </FormSection>
+      </div>
+
+      <div className="mt-6 flex justify-end">
+        <button
+          type="submit"
+          disabled={loading}
+          className={`${clayButtonPrimary} px-5 py-2.5 text-sm font-semibold`}
+        >
+          {iconCheck}
+          {loading ? "Menyimpan..." : "Simpan Berita"}
+        </button>
       </div>
     </form>
   );

@@ -147,23 +147,13 @@ function ProdukForm() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <h1 className="text-2xl font-bold text-secondary">
-            {isEdit ? "Edit Produk" : "Tambah Produk"}
-          </h1>
-          <p className="mt-1 text-sm text-gray-500">
-            Kelola informasi produk yang tampil di katalog website.
-          </p>
-        </div>
-        <button
-          type="submit"
-          disabled={loading}
-          className={`${clayButtonPrimary} px-5 py-2.5 text-sm font-semibold`}
-        >
-          {iconCheck}
-          {loading ? "Menyimpan..." : "Simpan Produk"}
-        </button>
+      <div className="mb-6">
+        <h1 className="text-2xl font-bold text-secondary">
+          {isEdit ? "Edit Produk" : "Tambah Produk"}
+        </h1>
+        <p className="mt-1 text-sm text-gray-500">
+          Kelola informasi produk yang tampil di katalog website.
+        </p>
       </div>
 
       {error && (
@@ -298,6 +288,17 @@ function ProdukForm() {
             )}
           </div>
         </FormSection>
+      </div>
+
+      <div className="mt-6 flex justify-end">
+        <button
+          type="submit"
+          disabled={loading}
+          className={`${clayButtonPrimary} px-5 py-2.5 text-sm font-semibold`}
+        >
+          {iconCheck}
+          {loading ? "Menyimpan..." : "Simpan Produk"}
+        </button>
       </div>
     </form>
   );

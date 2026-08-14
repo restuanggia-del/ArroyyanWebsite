@@ -216,7 +216,7 @@ function Testimoni() {
               </p>
             </div>
           )}
-          <div className="sm:col-span-2">
+          <div className="sm:col-span-2 flex justify-end">
             <button
               type="submit"
               disabled={loading}

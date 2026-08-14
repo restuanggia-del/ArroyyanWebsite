@@ -73,24 +73,12 @@ function TambahAdmin() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-2xl">
-      <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <h1 className="text-2xl font-bold text-secondary">
-            Tambah Akun Admin
-          </h1>
-          <p className="mt-1 text-sm text-gray-500">
-            Akun baru bisa langsung login dengan email dan password ini.
-          </p>
-        </div>
-        <button
-          type="submit"
-          disabled={loading}
-          className={`${clayButtonPrimary} px-5 py-2.5 text-sm font-semibold`}
-        >
-          {iconCheck}
-          {loading ? "Membuat akun..." : "Buat Akun Admin"}
-        </button>
+    <form onSubmit={handleSubmit}>
+      <div className="mb-6">
+        <h1 className="text-2xl font-bold text-secondary">Tambah Akun Admin</h1>
+        <p className="mt-1 text-sm text-gray-500">
+          Akun baru bisa langsung login dengan email dan password ini.
+        </p>
       </div>
 
       {error && (
@@ -109,7 +97,7 @@ function TambahAdmin() {
         title="Detail Akun"
         subtitle="Data login untuk admin baru"
       >
-        <div className="sm:col-span-2">
+        <div>
           <label className={clayLabel}>Nama</label>
           <input
             name="nama"
@@ -119,7 +107,7 @@ function TambahAdmin() {
             className={clayInput}
           />
         </div>
-        <div className="sm:col-span-2">
+        <div>
           <label className={clayLabel}>Email</label>
           <input
             name="email"
@@ -155,6 +143,17 @@ function TambahAdmin() {
           />
         </div>
       </FormSection>
+
+      <div className="mt-6 flex justify-end">
+        <button
+          type="submit"
+          disabled={loading}
+          className={`${clayButtonPrimary} px-5 py-2.5 text-sm font-semibold`}
+        >
+          {iconCheck}
+          {loading ? "Membuat akun..." : "Buat Akun Admin"}
+        </button>
+      </div>
     </form>
   );
 }
