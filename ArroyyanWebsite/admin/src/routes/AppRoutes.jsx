@@ -16,6 +16,7 @@ import HomeServis from "../pages/HomeServis.jsx";
 import Kontak from "../pages/Kontak.jsx";
 import Pengaturan from "../pages/Pengaturan.jsx";
 import TambahAdmin from "../pages/TambahAdmin.jsx";
+import AkunSaya from "../pages/AkunSaya.jsx";
 
 function AdminLayout({ children, title }) {
   return (
@@ -170,6 +171,16 @@ function AppRoutes() {
           <ProtectedRoute>
             <AdminLayout title="Tambah Admin">
               <TambahAdmin />
+            </AdminLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/akun"
+        element={
+          <ProtectedRoute>
+            <AdminLayout title="Pengaturan Akun">
+              <AkunSaya />
             </AdminLayout>
           </ProtectedRoute>
         }

@@ -8,6 +8,7 @@ import { getAllTestimoni } from "../../services/testimoniService.js";
 import { getAllBanner } from "../../services/bannerService.js";
 import { getHomeServis } from "../../services/homeServisService.js";
 import { getAllKontak } from "../../services/kontakService.js";
+import ConfirmDialog from "../common/ConfirmDialog.jsx";
 import {
   clayButtonPrimary,
   clayInset,
@@ -131,6 +132,42 @@ const iconBell = (
     <path d="M13.73 21a2 2 0 0 1-3.46 0" />
   </svg>
 );
+const iconPengaturanAkun = (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.8"
+    className="h-4 w-4"
+  >
+    <circle cx="12" cy="12" r="3" />
+    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z" />
+  </svg>
+);
+const iconLogout = (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.8"
+    className="h-4 w-4"
+  >
+    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+    <path d="M16 17l5-5-5-5" />
+    <path d="M21 12H9" />
+  </svg>
+);
+const iconChevronDown = (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    className="h-3.5 w-3.5 text-slate-400"
+  >
+    <path d="m6 9 6 6 6-6" />
+  </svg>
+);
 
 function formatTanggal(iso) {
   return new Date(iso).toLocaleDateString("id-ID", {
@@ -139,12 +176,21 @@ function formatTanggal(iso) {
   });
 }
 
+function formatRole(role) {
+  if (role === "superadmin") return "Super Admin";
+  return "Admin";
+}
+
 function Topbar({ title = "Dashboard" }) {
-  const { admin } = useAuth();
+  const { admin, logout } = useAuth();
   const navigate = useNavigate();
 
   const [openCreate, setOpenCreate] = useState(false);
   const createRef = useRef(null);
+
+  const [openUser, setOpenUser] = useState(false);
+  const userRef = useRef(null);
+  const [konfirmasiKeluar, setKonfirmasiKeluar] = useState(false);
 
   const [query, setQuery] = useState("");
   const [searchOpen, setSearchOpen] = useState(false);
@@ -180,10 +226,18 @@ function Topbar({ title = "Dashboard" }) {
       if (notifRef.current && !notifRef.current.contains(e.target)) {
         setNotifOpen(false);
       }
+      if (userRef.current && !userRef.current.contains(e.target)) {
+        setOpenUser(false);
+      }
     };
     document.addEventListener("mousedown", onClick);
     return () => document.removeEventListener("mousedown", onClick);
   }, []);
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
 
   useEffect(() => {
     Promise.allSettled([
@@ -514,16 +568,75 @@ function Topbar({ title = "Dashboard" }) {
         </div>
 
         <div
-          className={`flex items-center gap-2.5 py-1.5 pl-1.5 pr-3.5 ${clayCardSm}`}
+          className={`relative flex items-center gap-2.5 py-1.5 pl-1.5 pr-3.5 ${clayCardSm}`}
+          ref={userRef}
         >
-          <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 text-xs font-bold text-white">
-            {admin?.nama?.charAt(0) || "A"}
-          </div>
-          <span className="hidden truncate text-sm font-medium text-slate-800 md:inline">
-            {admin?.nama?.split(" ")[0] || "Admin"}
-          </span>
+          <button
+            onClick={() => {
+              setOpenUser((v) => !v);
+              setOpenCreate(false);
+              setSearchOpen(false);
+              setNotifOpen(false);
+            }}
+            className="flex items-center gap-2.5"
+          >
+            <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 text-xs font-bold text-white">
+              {admin?.nama?.charAt(0) || "A"}
+            </div>
+            <span className="hidden text-left leading-tight md:block">
+              <span className="block truncate text-sm font-medium text-slate-800">
+                {admin?.nama?.split(" ")[0] || "Admin"}
+              </span>
+              <span className="block truncate text-[11px] text-slate-400">
+                {formatRole(admin?.role)}
+              </span>
+            </span>
+            {iconChevronDown}
+          </button>
+
+          {openUser && (
+            <div
+              className={`absolute right-0 top-full z-30 mt-3 w-56 overflow-hidden py-1.5 text-left ${clayCardSm}`}
+            >
+              <div className="border-b border-blue-50 px-4 py-3">
+                <p className="truncate text-sm font-semibold text-secondary">
+                  {admin?.nama || "Admin"}
+                </p>
+                <p className="truncate text-xs text-gray-400">{admin?.email}</p>
+              </div>
+              <Link
+                to="/akun"
+                onClick={() => setOpenUser(false)}
+                className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-slate-600 transition-colors hover:bg-blue-50 hover:text-slate-900"
+              >
+                {iconPengaturanAkun}
+                Pengaturan Akun
+              </Link>
+              <button
+                onClick={() => {
+                  setOpenUser(false);
+                  setKonfirmasiKeluar(true);
+                }}
+                className="flex w-full items-center gap-2.5 px-4 py-2.5 text-sm text-red-500 transition-colors hover:bg-red-50"
+              >
+                {iconLogout}
+                Keluar
+              </button>
+            </div>
+          )}
         </div>
       </div>
+
+      <ConfirmDialog
+        open={konfirmasiKeluar}
+        title="Keluar dari Admin Panel"
+        message="Apakah Anda yakin ingin keluar?"
+        confirmText="Ya, Keluar"
+        cancelText="Tidak"
+        danger={false}
+        onConfirm={handleLogout}
+        onCancel={() => setKonfirmasiKeluar(false)}
+      />
     </header>
   );
 }

@@ -21,8 +21,16 @@ export function AuthProvider({ children }) {
     localStorage.removeItem("admin");
   };
 
+  const updateAdmin = (dataBaru) => {
+    setAdmin((prev) => {
+      const gabungan = { ...prev, ...dataBaru };
+      localStorage.setItem("admin", JSON.stringify(gabungan));
+      return gabungan;
+    });
+  };
+
   return (
-    <AuthContext.Provider value={{ admin, login, logout }}>
+    <AuthContext.Provider value={{ admin, login, logout, updateAdmin }}>
       {children}
     </AuthContext.Provider>
   );
