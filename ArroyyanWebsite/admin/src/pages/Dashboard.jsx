@@ -79,6 +79,14 @@ function MiniBars({ heights, accent, dim }) {
   );
 }
 
+function sapaanWaktu() {
+  const jam = new Date().getHours();
+  if (jam >= 4 && jam < 11) return "Selamat Pagi";
+  if (jam >= 11 && jam < 15) return "Selamat Siang";
+  if (jam >= 15 && jam < 18) return "Selamat Sore";
+  return "Selamat Malam";
+}
+
 function Dashboard() {
   const { admin } = useAuth();
   const [stats, setStats] = useState(null);
@@ -153,7 +161,7 @@ function Dashboard() {
 
   return (
     <div>
-      <div className="relative overflow-hidden rounded-[32px] bg-gradient-to-br from-blue-500 via-cyan-500 to-blue-700 p-6 shadow-[10px_10px_28px_rgba(37,99,235,0.3),-6px_-6px_20px_rgba(255,255,255,0.5)] sm:p-8">
+      <div className="relative overflow-hidden rounded-[32px] bg-gradient-to-br from-blue-500 via-cyan-500 to-pink-400 p-6 shadow-[10px_10px_28px_rgba(37,99,235,0.3),-6px_-6px_20px_rgba(255,255,255,0.5)] sm:p-8">
         <div className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-white/10" />
         <div className="pointer-events-none absolute -bottom-20 right-24 h-40 w-40 rounded-full bg-white/10" />
 
@@ -163,7 +171,7 @@ function Dashboard() {
               Dashboard
             </span>
             <h1 className="mt-3 text-2xl font-bold text-white sm:text-3xl">
-              Halo, {admin?.nama?.split(" ")[0] || "Admin"} 👋
+              {sapaanWaktu()}, {admin?.nama?.split(" ")[0] || "Admin"} 👋
             </h1>
             <p className="mt-1.5 max-w-md text-sm text-white/80">
               Ringkasan konten website Arroyyan99 saat ini.
@@ -180,7 +188,7 @@ function Dashboard() {
             {heroStats.map((item) => (
               <div
                 key={item.label}
-                className="min-w-[104px] rounded-2xl bg-white/15 px-4 py-3 shadow-[inset_2px_2px_6px_rgba(255,255,255,0.15)] backdrop-blur-sm"
+                className="min-w-[104px] rounded-2xl border border-white/25 bg-white/15 px-4 py-3 text-center shadow-[inset_2px_2px_6px_rgba(255,255,255,0.15)] backdrop-blur-sm"
               >
                 <p className="text-xl font-bold text-white sm:text-2xl">
                   {loading ? "…" : (item.nilai ?? 0)}
