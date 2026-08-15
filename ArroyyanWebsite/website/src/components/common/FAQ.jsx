@@ -35,23 +35,35 @@ const DAFTAR_FAQ = [
 
 function FAQItem({ item, terbuka, onToggle }) {
   return (
-    <div className="border-b border-gray-200 py-4">
+    <div className="border-b border-slate-200 py-1">
       <button
         onClick={onToggle}
-        className="flex w-full items-center justify-between text-left"
+        className="flex w-full items-center justify-between gap-4 py-4 text-left"
+        aria-expanded={terbuka}
       >
-        <span className="font-medium text-secondary">{item.pertanyaan}</span>
         <span
-          className={`ml-4 shrink-0 text-primary transition-transform ${terbuka ? "rotate-45" : ""}`}
+          className={`font-medium transition-colors ${terbuka ? "text-primary" : "text-secondary"}`}
+        >
+          {item.pertanyaan}
+        </span>
+        <span
+          className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-primary transition-transform duration-300 ${
+            terbuka ? "rotate-45 bg-primary/10" : "bg-slate-100"
+          }`}
         >
           +
         </span>
       </button>
-      {terbuka && (
-        <p className="mt-3 text-sm leading-relaxed text-gray-600">
-          {item.jawaban}
-        </p>
-      )}
+      <div
+        className="grid transition-[grid-template-rows] duration-300 ease-out"
+        style={{ gridTemplateRows: terbuka ? "1fr" : "0fr" }}
+      >
+        <div className="overflow-hidden">
+          <p className="pb-4 pr-10 text-sm leading-relaxed text-slate-500">
+            {item.jawaban}
+          </p>
+        </div>
+      </div>
     </div>
   );
 }
@@ -60,7 +72,7 @@ function FAQ() {
   const [indexTerbuka, setIndexTerbuka] = useState(0);
 
   return (
-    <div className="mx-auto max-w-3xl">
+    <div className="mx-auto max-w-3xl rounded-2xl border border-slate-200 bg-white px-5 sm:px-7">
       {DAFTAR_FAQ.map((item, index) => (
         <FAQItem
           key={item.pertanyaan}

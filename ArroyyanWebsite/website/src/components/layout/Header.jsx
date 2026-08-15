@@ -47,39 +47,9 @@ function Header() {
             <NavLink to="/tentang" className={navLinkClass}>
               Tentang
             </NavLink>
-
-            <div
-              className="relative"
-              onMouseEnter={() => setProdukDropdownOpen(true)}
-              onMouseLeave={() => setProdukDropdownOpen(false)}
-            >
-              <NavLink to="/produk" className={navLinkClass}>
-                Produk
-              </NavLink>
-              {produkDropdownOpen && (
-                <div className="absolute left-0 top-full w-40 rounded-md bg-white py-2 shadow-lg">
-                  <Link
-                    to="/produk/kategori/cup"
-                    className="block px-4 py-2 hover:bg-gray-50"
-                  >
-                    Cup
-                  </Link>
-                  <Link
-                    to="/produk/kategori/botol"
-                    className="block px-4 py-2 hover:bg-gray-50"
-                  >
-                    Botol
-                  </Link>
-                  <Link
-                    to="/produk/kategori/galon"
-                    className="block px-4 py-2 hover:bg-gray-50"
-                  >
-                    Galon
-                  </Link>
-                </div>
-              )}
-            </div>
-
+            <NavLink to="/produk" className={navLinkClass}>
+              Produk
+            </NavLink>
             <NavLink to="/home-servis" className={navLinkClass}>
               Home Servis
             </NavLink>
