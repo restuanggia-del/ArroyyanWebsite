@@ -14,6 +14,16 @@ export const getProduk = async (req, res) => {
   }
 };
 
+// @route  GET /api/produk/admin/all  (admin, semua produk termasuk nonaktif)
+export const getAllProdukAdmin = async (req, res) => {
+  try {
+    const produk = await Produk.find().sort({ createdAt: -1 });
+    res.json(produk);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 // @route  GET /api/produk/:id  (publik, detail satu produk)
 export const getProdukById = async (req, res) => {
   try {

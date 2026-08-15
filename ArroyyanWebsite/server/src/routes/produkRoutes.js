@@ -1,6 +1,7 @@
 import express from "express";
 import {
   getProduk,
+  getAllProdukAdmin,
   getProdukById,
   createProduk,
   updateProduk,
@@ -13,6 +14,10 @@ const router = express.Router();
 
 // Publik (dipakai oleh website)
 router.get("/", getProduk);
+
+// Privat (dipakai oleh admin, butuh token) — harus didefinisikan sebelum "/:id"
+router.get("/admin/all", protect, getAllProdukAdmin);
+
 router.get("/:id", getProdukById);
 
 // Privat (dipakai oleh admin, butuh token)
