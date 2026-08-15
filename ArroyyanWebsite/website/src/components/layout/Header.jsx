@@ -1,22 +1,42 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 
 function Header() {
   const [produkDropdownOpen, setProdukDropdownOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const navLinkClass = ({ isActive }) =>
-    `hover:text-primary transition-colors ${isActive ? "text-primary font-semibold" : "text-secondary"}`;
+    `relative py-1 transition-colors after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:text-primary ${
+      isActive
+        ? "text-primary font-semibold after:w-full"
+        : "text-secondary after:w-0 hover:after:w-full"
+    }`;
 
   return (
-    <header className="sticky top-0 z-50 bg-white shadow-sm">
+    <header
+      className={`sticky top-0 z-50 bg-white/90 backdrop-blur-md transition-shadow duration-300 ${
+        scrolled ? "shadow-[0_4px_20px_rgba(15,23,42,0.08)]" : "shadow-sm"
+      }`}
+    >
       <div className="relative mx-auto max-w-7xl">
-        <div className="mx-auto flex items-center justify-between px-4 py-3">
+        <div
+          className={`mx-auto flex items-center justify-between px-4 transition-[padding] duration-300 ${
+            scrolled ? "py-2" : "py-3"
+          }`}
+        >
           <Link to="/" className="flex items-center gap-2">
             <img
               src="/logo-arroyyan.png"
               alt="Logo Arroyyan99"
-              className="h-10 w-auto"
+              className={`w-auto transition-all duration-300 ${scrolled ? "h-8" : "h-10"}`}
             />
           </Link>
 
