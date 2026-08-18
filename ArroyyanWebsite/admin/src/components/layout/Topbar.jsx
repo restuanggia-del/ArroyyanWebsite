@@ -402,11 +402,12 @@ function Topbar({ title = "Dashboard" }) {
   };
 
   return (
-    <header className="sticky top-0 z-20 flex items-center gap-4 bg-[#eaf2fd]/90 px-6 py-4 backdrop-blur">
+    <header className="sticky top-0 z-20 flex h-20 shrink-0 items-center gap-4 border-b border-slate-300/80 bg-[#eaf2fd]/90 px-6 backdrop-blur">
       <h1 className="hidden shrink-0 text-lg font-semibold text-slate-900 sm:block">
         {title}
       </h1>
 
+      {/* Global search */}
       <div className="relative ml-0 flex-1 sm:ml-4 sm:max-w-md" ref={searchRef}>
         {iconSearch}
         <input
@@ -456,6 +457,7 @@ function Topbar({ title = "Dashboard" }) {
       </div>
 
       <div className="ml-auto flex items-center gap-3">
+        {/* Quick create */}
         <div className="relative" ref={createRef}>
           <button
             onClick={() => {
@@ -494,6 +496,7 @@ function Topbar({ title = "Dashboard" }) {
           )}
         </div>
 
+        {/* Notifications */}
         <div className="relative" ref={notifRef}>
           <button
             onClick={handleBellClick}

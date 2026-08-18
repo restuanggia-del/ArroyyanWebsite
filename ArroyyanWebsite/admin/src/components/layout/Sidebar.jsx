@@ -163,8 +163,8 @@ function Sidebar() {
     }`;
 
   return (
-    <aside className="sticky top-0 flex h-screen w-64 shrink-0 flex-col overflow-y-auto bg-[#eaf2fd] p-4">
-      <div className="mb-8 flex items-center justify-center gap-2.5 px-1 pt-2">
+    <aside className="sticky top-0 flex h-screen w-64 shrink-0 flex-col overflow-y-auto border-r border-slate-300/80 bg-[#eaf2fd]">
+      <div className="flex h-20 shrink-0 items-center justify-center border-b border-slate-300/80 px-4">
         <img
           src="/logo-arroyyan.png"
           alt="Logo Arroyyan99"
@@ -172,27 +172,36 @@ function Sidebar() {
         />
       </div>
 
-      <nav className="space-y-5 pb-4">
-        {GROUPS.map((group) => (
-          <div key={group.label}>
-            <p className="mb-2 px-3.5 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
-              {group.label}
-            </p>
-            <div className="space-y-1.5">
-              {group.items.map((item) => (
-                <NavLink
-                  key={item.to}
-                  to={item.to}
-                  end={item.end}
-                  className={linkClass}
-                >
-                  {item.icon}
-                  {item.label}
-                </NavLink>
-              ))}
+      <nav className="flex flex-1 flex-col p-4 pb-3">
+        <div className="space-y-5">
+          {GROUPS.map((group) => (
+            <div key={group.label}>
+              <p className="mb-2 px-3.5 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
+                {group.label}
+              </p>
+              <div className="space-y-1.5">
+                {group.items.map((item) => (
+                  <NavLink
+                    key={item.to}
+                    to={item.to}
+                    end={item.end}
+                    className={linkClass}
+                  >
+                    {item.icon}
+                    {item.label}
+                  </NavLink>
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+
+        <div className="-mx-4 mt-auto flex flex-col items-center gap-0.5 border-t border-slate-300/80 px-4 pt-3 text-center">
+          <p className="text-xs font-medium text-slate-400">
+            Arroyyan99 Admin Panel
+          </p>
+          <p className="text-[11px] text-slate-300">v1.0.0</p>
+        </div>
       </nav>
     </aside>
   );

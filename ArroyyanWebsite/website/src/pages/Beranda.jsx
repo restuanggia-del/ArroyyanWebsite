@@ -282,7 +282,8 @@ function Beranda() {
                     modules={[Autoplay, Navigation, Pagination, EffectFade]}
                     effect="fade"
                     fadeEffect={{ crossFade: true }}
-                    autoplay={{ delay: 4200, disableOnInteraction: false }}
+                    speed={1500}
+                    autoplay={{ delay: 5500, disableOnInteraction: false }}
                     navigation
                     pagination={{ clickable: true }}
                     loop={slideData.length > 1}
