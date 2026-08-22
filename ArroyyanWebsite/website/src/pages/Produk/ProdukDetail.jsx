@@ -69,7 +69,7 @@ function ProdukDetail() {
 
   const waLink = whatsapp
     ? `https://wa.me/${whatsapp}?text=${encodeURIComponent(
-        `Halo Arroyyan99, saya ingin memesan ${produk.nama} (${produk.volume || ""}).`,
+        `Halo Admin, saya ingin memesan ${produk.nama} (${produk.volume || ""}).`,
       )}`
     : "/kontak";
 
