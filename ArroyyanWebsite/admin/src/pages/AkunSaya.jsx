@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useAuth } from "../context/AuthContext.jsx";
 import { updateProfil, gantiPassword } from "../services/authService.js";
 import FormSection from "../components/common/FormSection.jsx";
+import Toast from "../components/common/Toast.jsx";
 import { clayInput, clayLabel, clayButtonPrimary } from "../styles/ui.js";
 
 const iconUser = (
@@ -45,7 +46,6 @@ function AkunSaya() {
 
   const [nama, setNama] = useState(admin?.nama || "");
   const [loadingProfil, setLoadingProfil] = useState(false);
-  const [pesanProfil, setPesanProfil] = useState(null);
 
   const [sandi, setSandi] = useState({
     sandiLama: "",
@@ -53,23 +53,30 @@ function AkunSaya() {
     konfirmasiSandiBaru: "",
   });
   const [loadingSandi, setLoadingSandi] = useState(false);
-  const [pesanSandi, setPesanSandi] = useState(null);
+
+  const [toast, setToast] = useState({
+    show: false,
+    message: "",
+    type: "success",
+  });
+
+  const tampilkanToast = (message, type = "success") => {
+    setToast({ show: true, message, type });
+  };
 
   const handleSimpanProfil = async (e) => {
     e.preventDefault();
-    setPesanProfil(null);
     setLoadingProfil(true);
     try {
       const res = await updateProfil({ nama });
       updateAdmin({ nama: res.data?.nama ?? nama });
-      setPesanProfil({ tipe: "sukses", teks: "Nama berhasil diperbarui." });
+      tampilkanToast("Nama berhasil diperbarui");
     } catch (err) {
-      setPesanProfil({
-        tipe: "error",
-        teks:
-          err.response?.data?.message ||
+      tampilkanToast(
+        err.response?.data?.message ||
           "Gagal memperbarui nama. Pastikan endpoint PUT /auth/profil sudah tersedia di backend.",
-      });
+        "error",
+      );
     } finally {
       setLoadingProfil(false);
     }
@@ -77,20 +84,13 @@ function AkunSaya() {
 
   const handleGantiSandi = async (e) => {
     e.preventDefault();
-    setPesanSandi(null);
 
     if (sandi.sandiBaru !== sandi.konfirmasiSandiBaru) {
-      setPesanSandi({
-        tipe: "error",
-        teks: "Konfirmasi password baru tidak cocok.",
-      });
+      tampilkanToast("Konfirmasi password baru tidak cocok", "error");
       return;
     }
     if (sandi.sandiBaru.length < 8) {
-      setPesanSandi({
-        tipe: "error",
-        teks: "Password baru minimal 8 karakter.",
-      });
+      tampilkanToast("Password baru minimal 8 karakter", "error");
       return;
     }
 
@@ -101,14 +101,13 @@ function AkunSaya() {
         sandiBaru: sandi.sandiBaru,
       });
       setSandi({ sandiLama: "", sandiBaru: "", konfirmasiSandiBaru: "" });
-      setPesanSandi({ tipe: "sukses", teks: "Password berhasil diganti." });
+      tampilkanToast("Password berhasil diganti");
     } catch (err) {
-      setPesanSandi({
-        tipe: "error",
-        teks:
-          err.response?.data?.message ||
+      tampilkanToast(
+        err.response?.data?.message ||
           "Gagal mengganti password. Pastikan endpoint PUT /auth/ganti-password sudah tersedia di backend.",
-      });
+        "error",
+      );
     } finally {
       setLoadingSandi(false);
     }
@@ -148,21 +147,7 @@ function AkunSaya() {
               />
             </div>
 
-            {pesanProfil && (
-              <div className="sm:col-span-2">
-                <p
-                  className={`rounded-2xl border px-4 py-3 text-sm ${
-                    pesanProfil.tipe === "sukses"
-                      ? "border-green-100 bg-green-50 text-green-700"
-                      : "border-red-100 bg-red-50 text-red-600"
-                  }`}
-                >
-                  {pesanProfil.teks}
-                </p>
-              </div>
-            )}
-
-            <div className="sm:col-span-2 flex justify-end">
+            <div className="sm:col-span-2">
               <button
                 type="submit"
                 disabled={loadingProfil}
@@ -220,21 +205,7 @@ function AkunSaya() {
               />
             </div>
 
-            {pesanSandi && (
-              <div className="sm:col-span-2">
-                <p
-                  className={`rounded-2xl border px-4 py-3 text-sm ${
-                    pesanSandi.tipe === "sukses"
-                      ? "border-green-100 bg-green-50 text-green-700"
-                      : "border-red-100 bg-red-50 text-red-600"
-                  }`}
-                >
-                  {pesanSandi.teks}
-                </p>
-              </div>
-            )}
-
-            <div className="sm:col-span-2 flex justify-end">
+            <div className="sm:col-span-2">
               <button
                 type="submit"
                 disabled={loadingSandi}
@@ -247,6 +218,13 @@ function AkunSaya() {
           </FormSection>
         </form>
       </div>
+
+      <Toast
+        show={toast.show}
+        message={toast.message}
+        type={toast.type}
+        onClose={() => setToast({ ...toast, show: false })}
+      />
     </div>
   );
 }

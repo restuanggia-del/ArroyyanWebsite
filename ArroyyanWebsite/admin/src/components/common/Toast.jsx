@@ -19,7 +19,7 @@ function Toast({ show, message, type = "success", onClose, duration = 3000 }) {
   const ikon = type === "success" ? "✓" : type === "error" ? "✕" : "ℹ";
 
   return (
-    <div className="fixed left-1/2 top-6 z-50 -translate-x-1/2 animate-[fadeIn_0.2s_ease-out]">
+    <div className="fixed left-1/2 top-6 z-50 animate-[toastIn_0.2s_ease-out_forwards]">
       <div
         className={`flex items-center gap-3 rounded-lg ${warna} px-4 py-3 text-sm font-medium text-white shadow-lg`}
       >

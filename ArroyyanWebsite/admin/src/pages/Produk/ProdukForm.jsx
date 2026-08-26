@@ -77,7 +77,6 @@ function ProdukForm() {
     isiPerDus: "",
     harga: "",
     unggulan: false,
-    status: "aktif",
   });
   const [gambar, setGambar] = useState(null);
   const [gambarLama, setGambarLama] = useState("");
@@ -98,7 +97,6 @@ function ProdukForm() {
             isiPerDus: res.data.isiPerDus || "",
             harga: res.data.harga || "",
             unggulan: res.data.unggulan || false,
-            status: res.data.status || "aktif",
           });
           setGambarLama(res.data.gambar || "");
         })
@@ -256,18 +254,6 @@ function ProdukForm() {
               className={clayInput}
             />
           </div>
-          <div>
-            <label className={clayLabel}>Status Produk</label>
-            <select
-              name="status"
-              value={form.status}
-              onChange={handleChange}
-              className={clayInput}
-            >
-              <option value="aktif">Aktif (tampil di website)</option>
-              <option value="nonaktif">Nonaktif (disembunyikan)</option>
-            </select>
-          </div>
           <div className="flex items-end">
             <label className="flex items-center gap-2.5 rounded-2xl border border-white bg-[#eef5fd] px-4 py-2.5 text-sm text-gray-700 shadow-[inset_2px_2px_5px_rgba(96,130,196,0.12),inset_-2px_-2px_5px_rgba(255,255,255,0.9)]">
               <input
@@ -303,7 +289,6 @@ function ProdukForm() {
           </div>
         </FormSection>
       </div>
-
       <div className="mt-6 flex justify-end">
         <button
           type="submit"

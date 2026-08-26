@@ -290,7 +290,6 @@ function BeritaForm() {
           </div>
         </FormSection>
       </div>
-
       <div className="mt-6 flex justify-end">
         <button
           type="submit"

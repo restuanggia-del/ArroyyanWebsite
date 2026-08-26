@@ -4,6 +4,7 @@ import {
   updateHomeServis,
 } from "../services/homeServisService.js";
 import FormSection from "../components/common/FormSection.jsx";
+import Toast from "../components/common/Toast.jsx";
 import { clayInput, clayLabel, clayButtonPrimary } from "../styles/ui.js";
 
 const iconTruck = (
@@ -53,7 +54,15 @@ function HomeServis() {
     minimalOrder: "",
   });
   const [loading, setLoading] = useState(false);
-  const [sukses, setSukses] = useState(false);
+  const [toast, setToast] = useState({
+    show: false,
+    message: "",
+    type: "success",
+  });
+
+  const tampilkanToast = (message, type = "success") => {
+    setToast({ show: true, message, type });
+  };
 
   useEffect(() => {
     getHomeServis()
@@ -67,13 +76,14 @@ function HomeServis() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setSukses(false);
     try {
       await updateHomeServis(form);
-      setSukses(true);
-      setTimeout(() => setSukses(false), 3000);
-    } catch {
-      alert("Gagal menyimpan perubahan");
+      tampilkanToast("Perubahan berhasil disimpan");
+    } catch (err) {
+      tampilkanToast(
+        err.response?.data?.message || "Gagal menyimpan perubahan",
+        "error",
+      );
     } finally {
       setLoading(false);
     }
@@ -89,12 +99,6 @@ function HomeServis() {
           Konten ini tampil di halaman "Home Servis" pada website publik.
         </p>
       </div>
-
-      {sukses && (
-        <div className="mb-5 rounded-2xl border border-green-100 bg-green-50 px-4 py-3 text-sm text-green-700 shadow-[inset_2px_2px_5px_rgba(34,197,94,0.06)]">
-          Perubahan berhasil disimpan.
-        </div>
-      )}
 
       <div className="space-y-5">
         <FormSection
@@ -174,6 +178,12 @@ function HomeServis() {
           {loading ? "Menyimpan..." : "Simpan Perubahan"}
         </button>
       </div>
+      <Toast
+        show={toast.show}
+        message={toast.message}
+        type={toast.type}
+        onClose={() => setToast({ ...toast, show: false })}
+      />
     </form>
   );
 }
