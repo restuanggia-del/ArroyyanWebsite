@@ -355,7 +355,7 @@ function Beranda() {
       {/* Produk Unggulan */}
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24">
         <Reveal variant="up">
-          <div className="mb-10 flex flex-wrap items-end justify-between gap-4 sm:mb-14">
+          <div className="mb-10 flex flex-wrap items-end justify-center gap-4 text-center sm:mb-14 sm:justify-between sm:text-left">
             <div>
               <Kicker>Pilihan Terbaik</Kicker>
               <h2 className="font-display mt-3 text-2xl font-semibold text-secondary sm:text-4xl">
@@ -425,7 +425,7 @@ function Beranda() {
       <section className="relative bg-[#F7F5F0] py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <div className="grid grid-cols-1 gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
-            <Reveal variant="right">
+            <Reveal variant="right" className="text-center lg:text-left">
               <Kicker>Kenapa Memilih Kami</Kicker>
               <h2 className="font-display mt-3 text-2xl font-semibold leading-tight text-secondary sm:text-4xl">
                 Empat alasan keluarga Indonesia mempercayai Arroyyan99.
@@ -592,7 +592,7 @@ function Beranda() {
       {beritaTerbaru.length > 0 && (
         <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24">
           <Reveal variant="up">
-            <div className="mb-10 flex flex-wrap items-end justify-between gap-4 sm:mb-14">
+            <div className="mb-10 flex flex-wrap items-end justify-center gap-4 text-center sm:mb-14 sm:justify-between sm:text-left">
               <div>
                 <Kicker>Update</Kicker>
                 <h2 className="font-display mt-3 text-2xl font-semibold text-secondary sm:text-4xl">
